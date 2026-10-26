@@ -42,27 +42,37 @@ const [command, ...args] = positionals;
 const store = () => new JsonStore(resolve(ROOT, values.data!));
 const seed = () => (values.seed ? Number(values.seed) : Math.floor(Math.random() * 2 ** 31));
 
-/** One line per labeled failure: its evidence and its injected cause. Features are computed on read. */
+/** One line per labeled failure: its case id, evidence and injected cause. Features are computed on read. */
 interface TrainingRecord {
+  id: string;
   cause: Sample["cause"];
   input: FeatureInput;
 }
 
-function readTraining(): Sample[] {
+function readTraining(): TrainingRecord[] {
   if (!existsSync(TRAINING_PATH)) return [];
   return readFileSync(TRAINING_PATH, "utf8")
     .split("\n")
     .filter(Boolean)
     .map((l) => JSON.parse(l) as TrainingRecord)
-    .filter((r) => r.input)
-    .map((r) => ({ cause: r.cause, features: extractFeatures(r.input) }));
+    .filter((r) => r.input);
 }
 
-const record = (c: CaseDoc): TrainingRecord | null => (c.truth.cause ? { cause: c.truth.cause, input: inputFromCase(c) } : null);
-const labeled = (c: CaseDoc): Sample | null => {
-  const r = record(c);
-  return r ? { cause: r.cause, features: extractFeatures(r.input) } : null;
-};
+const record = (c: CaseDoc): TrainingRecord | null =>
+  c.truth.cause ? { id: c._id, cause: c.truth.cause, input: inputFromCase(c) } : null;
+
+/**
+ * The bundled training set plus the store's labeled cases, one sample per case:
+ * the same case can be in both (the training set was exported from patrol data).
+ */
+function samplesFrom(cases: CaseDoc[]): Sample[] {
+  const byId = new Map(readTraining().map((r) => [r.id, r]));
+  for (const c of cases) {
+    const r = record(c);
+    if (r) byId.set(r.id, r);
+  }
+  return [...byId.values()].map((r) => ({ cause: r.cause, features: extractFeatures(r.input) }));
+}
 
 /**
  * Retrains on the bundled training set plus every labeled case in the store and
@@ -70,7 +80,7 @@ const labeled = (c: CaseDoc): Sample | null => {
  * patrol. Falls back to the bundled model while there is too little data.
  */
 async function retrain(s: JsonStore): Promise<Model | null> {
-  const samples = [...readTraining(), ...(await s.listCases()).map(labeled).filter((x): x is Sample => x !== null)];
+  const samples = samplesFrom(await s.listCases());
   if (samples.length < 20) return loadModel();
   const model: Model = { ...train(samples), metrics: evaluate(samples) };
   writeFileSync(join(resolve(ROOT, values.data!), "model.json"), JSON.stringify(model));
@@ -107,8 +117,7 @@ async function main() {
       break;
     }
     case "train": {
-      const fromStore = existsSync(resolve(ROOT, values.data!)) ? (await store().listCases()).map(labeled).filter((x): x is Sample => x !== null) : [];
-      const samples = [...readTraining(), ...fromStore];
+      const samples = samplesFrom(existsSync(resolve(ROOT, values.data!)) ? await store().listCases() : []);
       if (samples.length < 20) throw new Error(`Only ${samples.length} labeled samples; run \`npm run sweep\` first.`);
       const metrics = evaluate(samples);
       const model = { ...train(samples), metrics };
