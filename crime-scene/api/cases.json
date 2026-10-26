@@ -1,0 +1,56 @@
+[
+  {
+    "id": "101",
+    "title": "The Missing Brigadeiro",
+    "district": "Vila Madalena",
+    "summary": "A tray of 40 brigadeiros vanished from a birthday party minutes before the cake.",
+    "status": "open",
+    "culprit": "s3",
+    "suspects": [
+      { "id": "s1", "name": "Dona Neide", "note": "Baked the brigadeiros and counted them twice." },
+      { "id": "s2", "name": "Tio Juca", "note": "Was seen near the kitchen holding a napkin." },
+      { "id": "s3", "name": "Paçoca the cat", "note": "Chocolate sprinkles found on its whiskers." }
+    ],
+    "evidence": [
+      "Empty tray found under the sofa.",
+      "Sprinkle trail leading to the laundry room."
+    ]
+  },
+  {
+    "id": "102",
+    "title": "The Vanishing Bilhete Único",
+    "district": "Sé",
+    "summary": "A transit card disappeared between two turnstiles at Sé station.",
+    "status": "open",
+    "culprit": "s2",
+    "suspects": [
+      { "id": "s1", "name": "Station guard Rui", "note": "On shift, but on a coffee break." },
+      { "id": "s2", "name": "Street vendor Lia", "note": "Sells card holders right next to the gate." },
+      { "id": "s3", "name": "Commuter Beto", "note": "Late for work and in a hurry." }
+    ],
+    "evidence": ["Camera 4 was pointed at the ceiling."]
+  },
+  {
+    "id": "103",
+    "title": "The Midnight Samba",
+    "district": "Liberdade",
+    "summary": "Neighbors report a samba drum playing at 3 a.m. from an apartment that is empty.",
+    "status": "open",
+    "culprit": "s1",
+    "suspects": [
+      { "id": "s1", "name": "Smart speaker", "note": "Left on shuffle by the previous tenant." },
+      { "id": "s2", "name": "Building manager", "note": "Has keys to every apartment." }
+    ],
+    "evidence": []
+  },
+  {
+    "id": "104",
+    "title": "The Silent Pandeiro",
+    "district": "Lapa",
+    "summary": "A pandeiro stopped jingling the night before the show.",
+    "status": "closed",
+    "culprit": "s1",
+    "suspects": [{ "id": "s1", "name": "Humidity", "note": "Loosened the skin overnight." }],
+    "evidence": ["Hygrometer read 94%."]
+  }
+]

@@ -1,0 +1,66 @@
+name: Deploy site
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            dashboard/package-lock.json
+
+      - name: Agent tests and types
+        run: |
+          npm ci
+          npm test
+          npm run typecheck
+
+      - name: Build the Case Files dashboard
+        working-directory: dashboard
+        env:
+          # The dashboard reads cases live from the runs-data branch.
+          VITE_DATA_URL: https://raw.githubusercontent.com/${{ github.repository }}/runs-data/
+        run: |
+          npm ci
+          npm run build
+
+      - name: Add the crime scene and the bundled model
+        run: |
+          cp -r crime-scene dashboard/dist/crime-scene
+          if [ -f model/model.json ]; then cp model/model.json dashboard/dist/model.json; fi
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        with:
+          path: dashboard/dist
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

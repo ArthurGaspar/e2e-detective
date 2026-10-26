@@ -1,0 +1,16 @@
+node_modules/
+dashboard/node_modules/
+dashboard/dist/
+
+# Playwright output
+test-results/
+playwright-report/
+
+# Local patrol data and scratch space
+.patrol/
+.runs-data/
+.sweep-data/
+.scratch/
+
+# Personal
+todo.txt

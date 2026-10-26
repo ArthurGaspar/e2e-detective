@@ -1,0 +1,54 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f6f3ec;
+  --panel: #fffdf8;
+  --ink: #1d1b16;
+  --muted: #6b665b;
+  --line: #ddd6c6;
+  --accent: #8a5a12;
+  --good: #1f7a1f;
+  --bad: #b3261e;
+  font: 15px/1.5 Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15140f;
+    --panel: #1f1d17;
+    --ink: #f1ece0;
+    --muted: #aaa392;
+    --line: #3a372e;
+    --accent: #d9a441;
+    --good: #6fcf6f;
+    --bad: #ff8a80;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); }
+.top { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+.logo { font-weight: 700; font-size: 20px; color: var(--accent); }
+.release { margin-left: auto; font: 12px ui-monospace, monospace; color: var(--bad); }
+main { max-width: 960px; margin: 0 auto; padding: 16px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+.narrow { max-width: 380px; margin: 40px auto; }
+.muted { color: var(--muted); }
+a { color: var(--accent); }
+form { display: flex; flex-direction: column; gap: 10px; }
+label { display: flex; flex-direction: column; gap: 4px; }
+input, textarea { font: inherit; padding: 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); }
+button { font: inherit; padding: 8px 14px; border-radius: 6px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; }
+button.primary, button[type="submit"] { background: var(--accent); color: var(--panel); }
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+.columns { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.cards, .suspects, .evidence { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
+.card h3 { margin: 0 0 4px; }
+.suspects li { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-bottom: 1px dashed var(--line); padding-bottom: 8px; }
+.suspects p { margin: 2px 0 0; }
+.evidence li::before { content: "▸ "; color: var(--accent); }
+.chip { font: 12px ui-monospace, monospace; padding: 1px 6px; border-radius: 4px; border: 1px solid currentColor; }
+.chip.solved { color: var(--good); }
+.chip.closed { color: var(--muted); }
+.verdict { padding: 10px 12px; border-radius: 6px; border: 1px solid currentColor; }
+.verdict.good { color: var(--good); }
+.verdict.bad, .alert { color: var(--bad); }
+#evidence-form { margin: 12px 0 20px; }
