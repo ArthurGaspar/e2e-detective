@@ -1,0 +1,53 @@
+{
+ "_id": "20261026T203629Z-gvdk4c",
+ "startedAt": "2026-10-26T20:36:29.412Z",
+ "finishedAt": "2026-10-26T20:36:50.152Z",
+ "target": "http://localhost:4400/",
+ "trigger": "sweep",
+ "tests": [
+  {
+   "key": "accuse-suspect.spec.ts > accuse the right suspect",
+   "title": "accuse the right suspect",
+   "outcome": "expected",
+   "durationMs": 0,
+   "scenario": "bug-close",
+   "cause": "real_bug"
+  },
+  {
+   "key": "add-evidence.spec.ts > add evidence",
+   "title": "add evidence",
+   "outcome": "flaky",
+   "durationMs": 5905,
+   "scenario": "latency",
+   "cause": "flaky",
+   "caseId": "20261026T203629Z-gvdk4c-1"
+  },
+  {
+   "key": "close-case.spec.ts > close a solved case",
+   "title": "close a solved case",
+   "outcome": "unexpected",
+   "durationMs": 11532,
+   "scenario": "redesign",
+   "cause": "outdated_test",
+   "caseId": "20261026T203629Z-gvdk4c-2"
+  },
+  {
+   "key": "open-case.spec.ts > open a case file",
+   "title": "open a case file",
+   "outcome": "unexpected",
+   "durationMs": 11288,
+   "scenario": "outage",
+   "cause": "environment",
+   "caseId": "20261026T203629Z-gvdk4c-3"
+  },
+  {
+   "key": "sign-in.spec.ts > detective signs in and sees the case board",
+   "title": "detective signs in and sees the case board",
+   "outcome": "unexpected",
+   "durationMs": 10802,
+   "scenario": "outage",
+   "cause": "environment",
+   "caseId": "20261026T203629Z-gvdk4c-4"
+  }
+ ]
+}

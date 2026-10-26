@@ -1,0 +1,63 @@
+{
+ "_id": "20261026T203257Z-bo4lzq-3",
+ "runId": "20261026T203257Z-bo4lzq",
+ "openedAt": "2026-10-26T20:33:17.274Z",
+ "test": {
+  "key": "sign-in.spec.ts > detective signs in and sees the case board",
+  "title": "detective signs in and sees the case board",
+  "file": "sign-in.spec.ts"
+ },
+ "outcome": "flaky",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 5282,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('heading', { name: 'Case board' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('heading', { name: 'Case board' }) with timeout 5000ms\n  - waiting for getByRole('heading', { name: 'Case board' })\n",
+   "locator": "getByRole('heading', { name: 'Case board' })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 0,
+     "ms": 0
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: Casebook São Paulo Detective Agency (a test target, not a real agency)\n- main:\n  - heading \"Detective sign-in\" [level=1]\n  - text: Badge number\n  - textbox \"Badge number\": 221B\n  - text: Password\n  - textbox \"Password\": elementary\n  - button \"Sign in\"",
+ "screenshot": "cases/20261026T203257Z-bo4lzq-3.jpg",
+ "features": {
+  "passed_on_retry": 1,
+  "failed_attempts": 1,
+  "same_error_every_attempt": 0,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 1,
+  "console_errors": 0,
+  "slowest_api_s": 0,
+  "slow_api_calls": 0,
+  "error_banner": 0,
+  "heal_score": 0
+ },
+ "suspects": {
+  "flaky": 1,
+  "environment": 0,
+  "real_bug": 0,
+  "outdated_test": 0
+ },
+ "verdict": {
+  "cause": "flaky",
+  "confidence": 1,
+  "by": "rules"
+ },
+ "rulesVerdict": "flaky",
+ "healLeads": [],
+ "truth": {
+  "scenario": "latency",
+  "cause": "flaky"
+ }
+}

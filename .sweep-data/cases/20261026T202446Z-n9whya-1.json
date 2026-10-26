@@ -1,0 +1,84 @@
+{
+ "_id": "20261026T202446Z-n9whya-1",
+ "runId": "20261026T202446Z-n9whya",
+ "openedAt": "2026-10-26T20:25:08.245Z",
+ "test": {
+  "key": "accuse-suspect.spec.ts > accuse the right suspect",
+  "title": "accuse the right suspect",
+  "file": "generated/accuse-suspect.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 5992,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('link', { name: 'Open case file: The Missing Brigadeiro', exact: true })\n",
+   "locator": "getByRole('link', { name: 'Open case file: The Missing Brigadeiro', exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 0,
+     "ms": 13.528999999999542,
+     "failure": "net::ERR_INTERNET_DISCONNECTED"
+    }
+   ],
+   "consoleErrors": [
+    "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+   ]
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5868,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('link', { name: 'Open case file: The Missing Brigadeiro', exact: true })\n",
+   "locator": "getByRole('link', { name: 'Open case file: The Missing Brigadeiro', exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 0,
+     "ms": 8.118000000000393,
+     "failure": "net::ERR_INTERNET_DISCONNECTED"
+    }
+   ],
+   "consoleErrors": [
+    "Failed to load resource: net::ERR_INTERNET_DISCONNECTED"
+   ]
+  }
+ ],
+ "snapshot": "- banner: Casebook São Paulo Detective Agency (a test target, not a real agency)\n- main:\n  - heading \"Detective sign-in\" [level=1]\n  - text: Badge number\n  - textbox \"Badge number\": 221B\n  - text: Password\n  - textbox \"Password\": elementary\n  - button \"Sign in\"\n  - alert: Failed to fetch",
+ "screenshot": "cases/20261026T202446Z-n9whya-1.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 1,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 2,
+  "console_errors": 2,
+  "slowest_api_s": 0,
+  "slow_api_calls": 0,
+  "error_banner": 1,
+  "heal_score": 0
+ },
+ "suspects": {
+  "flaky": 0,
+  "environment": 1,
+  "real_bug": 0,
+  "outdated_test": 0
+ },
+ "verdict": {
+  "cause": "environment",
+  "confidence": 1,
+  "by": "rules"
+ },
+ "rulesVerdict": "environment",
+ "healLeads": [],
+ "truth": {
+  "scenario": "drop",
+  "cause": "environment"
+ }
+}

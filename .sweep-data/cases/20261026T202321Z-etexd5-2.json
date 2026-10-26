@@ -1,0 +1,149 @@
+{
+ "_id": "20261026T202321Z-etexd5-2",
+ "runId": "20261026T202321Z-etexd5",
+ "openedAt": "2026-10-26T20:23:41.963Z",
+ "test": {
+  "key": "close-case.spec.ts > close a solved case",
+  "title": "close a solved case",
+  "file": "generated/close-case.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 6193,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Close case', exact: true })\n    - locator resolved to <button disabled class=\"primary\" data-testid=\"close-case\">Close case</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    10 × waiting for element to be visible, enabled and stable\n       - element is not enabled\n     - retrying click action\n       - waiting 500ms\n",
+   "locator": "getByRole('button', { name: 'Close case', exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 2.363
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.4829999999999997
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.1639999999999997
+    },
+    {
+     "url": "http://localhost:4400/api/ack.json?op=accuse&case=103",
+     "status": 200,
+     "ms": 2.643
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.709
+    }
+   ],
+   "consoleErrors": []
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5980,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Close case', exact: true })\n    - locator resolved to <button disabled class=\"primary\" data-testid=\"close-case\">Close case</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not enabled\n    - retrying click action\n      - waiting 100ms\n    10 × waiting for element to be visible, enabled and stable\n       - element is not enabled\n     - retrying click action\n       - waiting 500ms\n",
+   "locator": "getByRole('button', { name: 'Close case', exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 2.473
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.484
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.59
+    },
+    {
+     "url": "http://localhost:4400/api/ack.json?op=accuse&case=103",
+     "status": 200,
+     "ms": 2.602
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.444
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: \"Casebook São Paulo Detective Agency (a test target, not a real agency) release: bug-accuse\"\n- main:\n  - article:\n    - link \"← Case board\":\n      - /url: \"#/board\"\n    - heading \"The Midnight Samba\" [level=1]\n    - paragraph: Liberdade · open\n    - paragraph: Neighbors report a samba drum playing at 3 a.m. from an apartment that is empty.\n    - status: Wrong suspect. Keep investigating.\n    - heading \"Suspects\" [level=2]\n    - list:\n      - listitem:\n        - strong: Smart speaker\n        - paragraph: Left on shuffle by the previous tenant.\n        - button \"Accuse Smart speaker\"\n      - listitem:\n        - strong: Building manager\n        - paragraph: Has keys to every apartment.\n        - button \"Accuse Building manager\"\n    - heading \"Evidence (0)\" [level=2]\n    - list\n    - text: New evidence\n    - textbox \"New evidence\"\n    - button \"Add evidence\"\n    - button \"Close case\" [disabled]",
+ "screenshot": "cases/20261026T202321Z-etexd5-2.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 1,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 0,
+  "console_errors": 0,
+  "slowest_api_s": 0,
+  "slow_api_calls": 0,
+  "error_banner": 0,
+  "heal_score": 0.294
+ },
+ "suspects": {
+  "flaky": 0,
+  "environment": 0,
+  "real_bug": 1,
+  "outdated_test": 0
+ },
+ "verdict": {
+  "cause": "real_bug",
+  "confidence": 1,
+  "by": "rules"
+ },
+ "rulesVerdict": "real_bug",
+ "healLeads": [
+  {
+   "locator": "getByRole('link', { name: '← Case board' })",
+   "score": 0.294,
+   "candidate": {
+    "role": "link",
+    "name": "← Case board",
+    "testId": null,
+    "tag": "a"
+   }
+  },
+  {
+   "locator": "getByRole('button', { name: 'Accuse Smart speaker' })",
+   "score": 0.164,
+   "candidate": {
+    "role": "button",
+    "name": "Accuse Smart speaker",
+    "testId": null,
+    "tag": "button"
+   }
+  },
+  {
+   "locator": "getByRole('button', { name: 'Accuse Building manager' })",
+   "score": 0.163,
+   "candidate": {
+    "role": "button",
+    "name": "Accuse Building manager",
+    "testId": null,
+    "tag": "button"
+   }
+  }
+ ],
+ "truth": {
+  "scenario": "bug-accuse",
+  "cause": "real_bug"
+ }
+}

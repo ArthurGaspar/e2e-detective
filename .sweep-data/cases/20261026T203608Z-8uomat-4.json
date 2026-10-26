@@ -1,0 +1,88 @@
+{
+ "_id": "20261026T203608Z-8uomat-4",
+ "runId": "20261026T203608Z-8uomat",
+ "openedAt": "2026-10-26T20:36:29.398Z",
+ "test": {
+  "key": "sign-in.spec.ts > detective signs in and sees the case board",
+  "title": "detective signs in and sees the case board",
+  "file": "sign-in.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 5317,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('heading', { name: 'Case board' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('heading', { name: 'Case board' }) with timeout 5000ms\n  - waiting for getByRole('heading', { name: 'Case board' })\n",
+   "locator": "getByRole('heading', { name: 'Case board' })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 1.452
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.552
+    }
+   ],
+   "consoleErrors": []
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5386,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('heading', { name: 'Case board' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('heading', { name: 'Case board' }) with timeout 5000ms\n  - waiting for getByRole('heading', { name: 'Case board' })\n",
+   "locator": "getByRole('heading', { name: 'Case board' })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 1.484
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.917
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: \"Casebook São Paulo Detective Agency (a test target, not a real agency) release: redesign\"\n- main:\n  - heading \"Investigations\" [level=1]\n  - paragraph: Welcome back, Det. Holmes Silva.\n  - region \"Active investigations (3)\":\n    - heading \"Active investigations (3)\" [level=2]\n    - list:\n      - listitem:\n        - heading \"The Missing Brigadeiro\" [level=3]\n        - paragraph: Vila Madalena · open · 2 evidence\n        - 'link \"View file: The Missing Brigadeiro\"':\n          - /url: \"#/case/101\"\n          - text: View file\n      - listitem:\n        - heading \"The Vanishing Bilhete Único\" [level=3]\n        - paragraph: Sé · open · 1 evidence\n        - 'link \"View file: The Vanishing Bilhete Único\"':\n          - /url: \"#/case/102\"\n          - text: View file\n      - listitem:\n        - heading \"The Midnight Samba\" [level=3]\n        - paragraph: Liberdade · open · 0 evidence\n        - 'link \"View file: The Midnight Samba\"':\n          - /url: \"#/case/103\"\n          - text: View file\n  - region \"Archive (1)\":\n    - heading \"Archive (1)\" [level=2]\n    - list:\n      - listitem:\n        - heading \"The Silent Pandeiro\" [level=3]\n        - paragraph: Lapa · closed · 1 evidence\n        - 'link \"View file: The Silent Pandeiro\"':\n          - /url: \"#/case/104\"\n          - text: View file",
+ "screenshot": "cases/20261026T203608Z-8uomat-4.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 1,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 0,
+  "console_errors": 0,
+  "slowest_api_s": 0,
+  "slow_api_calls": 0,
+  "error_banner": 0,
+  "heal_score": 0
+ },
+ "suspects": {
+  "flaky": 0,
+  "environment": 0,
+  "real_bug": 1,
+  "outdated_test": 0
+ },
+ "verdict": {
+  "cause": "real_bug",
+  "confidence": 1,
+  "by": "rules"
+ },
+ "rulesVerdict": "real_bug",
+ "healLeads": [],
+ "truth": {
+  "scenario": "redesign",
+  "cause": "outdated_test"
+ }
+}

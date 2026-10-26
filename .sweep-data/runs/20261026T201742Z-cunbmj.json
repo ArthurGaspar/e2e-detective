@@ -1,0 +1,53 @@
+{
+ "_id": "20261026T201742Z-cunbmj",
+ "startedAt": "2026-10-26T20:17:42.720Z",
+ "finishedAt": "2026-10-26T20:18:01.812Z",
+ "target": "http://localhost:4400/",
+ "trigger": "sweep",
+ "tests": [
+  {
+   "key": "accuse-suspect.spec.ts > accuse the right suspect",
+   "title": "accuse the right suspect",
+   "outcome": "expected",
+   "durationMs": 0,
+   "scenario": "clean",
+   "cause": null
+  },
+  {
+   "key": "add-evidence.spec.ts > add evidence",
+   "title": "add evidence",
+   "outcome": "unexpected",
+   "durationMs": 11429,
+   "scenario": "redesign",
+   "cause": "outdated_test",
+   "caseId": "20261026T201742Z-cunbmj-1"
+  },
+  {
+   "key": "close-case.spec.ts > close a solved case",
+   "title": "close a solved case",
+   "outcome": "unexpected",
+   "durationMs": 11807,
+   "scenario": "outage",
+   "cause": "environment",
+   "caseId": "20261026T201742Z-cunbmj-2"
+  },
+  {
+   "key": "open-case.spec.ts > open a case file",
+   "title": "open a case file",
+   "outcome": "unexpected",
+   "durationMs": 11943,
+   "scenario": "drop",
+   "cause": "environment",
+   "caseId": "20261026T201742Z-cunbmj-3"
+  },
+  {
+   "key": "sign-in.spec.ts > detective signs in and sees the case board",
+   "title": "detective signs in and sees the case board",
+   "outcome": "unexpected",
+   "durationMs": 10831,
+   "scenario": "latency",
+   "cause": "flaky",
+   "caseId": "20261026T201742Z-cunbmj-4"
+  }
+ ]
+}

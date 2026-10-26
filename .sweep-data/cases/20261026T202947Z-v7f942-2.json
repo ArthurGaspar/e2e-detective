@@ -1,0 +1,83 @@
+{
+ "_id": "20261026T202947Z-v7f942-2",
+ "runId": "20261026T202947Z-v7f942",
+ "openedAt": "2026-10-26T20:30:20.157Z",
+ "test": {
+  "key": "add-evidence.spec.ts > add evidence",
+  "title": "add evidence",
+  "file": "generated/add-evidence.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 5743,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('link', { name: 'Open case file: The Vanishing Bilhete Único', exact: true })\n",
+   "locator": "getByRole('link', { name: 'Open case file: The Vanishing Bilhete Único', exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 21.426000000000002
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 0,
+     "ms": 0
+    }
+   ],
+   "consoleErrors": []
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5571,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('link', { name: 'Open case file: The Vanishing Bilhete Único', exact: true })\n",
+   "locator": "getByRole('link', { name: 'Open case file: The Vanishing Bilhete Único', exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 0,
+     "ms": 0
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: Casebook São Paulo Detective Agency (a test target, not a real agency)\n- main:\n  - heading \"Detective sign-in\" [level=1]\n  - text: Badge number\n  - textbox \"Badge number\": 221B\n  - text: Password\n  - textbox \"Password\": elementary\n  - button \"Sign in\"",
+ "screenshot": "cases/20261026T202947Z-v7f942-2.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 1,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 2,
+  "console_errors": 0,
+  "slowest_api_s": 0,
+  "slow_api_calls": 0,
+  "error_banner": 0,
+  "heal_score": 0
+ },
+ "suspects": {
+  "flaky": 0,
+  "environment": 1,
+  "real_bug": 0,
+  "outdated_test": 0
+ },
+ "verdict": {
+  "cause": "environment",
+  "confidence": 1,
+  "by": "rules"
+ },
+ "rulesVerdict": "environment",
+ "healLeads": [],
+ "truth": {
+  "scenario": "latency",
+  "cause": "flaky"
+ }
+}

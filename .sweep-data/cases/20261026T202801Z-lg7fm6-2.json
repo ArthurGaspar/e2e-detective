@@ -1,0 +1,179 @@
+{
+ "_id": "20261026T202801Z-lg7fm6-2",
+ "runId": "20261026T202801Z-lg7fm6",
+ "openedAt": "2026-10-26T20:28:21.753Z",
+ "test": {
+  "key": "close-case.spec.ts > close a solved case",
+  "title": "close a solved case",
+  "file": "generated/close-case.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 6193,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('heading', { name: 'Closed cases (2)', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('heading', { name: 'Closed cases (2)', exact: true }) with timeout 5000ms\n  - waiting for getByRole('heading', { name: 'Closed cases (2)', exact: true })\n",
+   "locator": "getByRole('heading', { name: 'Closed cases (2)', exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 2.138
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 4.984999999999999
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.49
+    },
+    {
+     "url": "http://localhost:4400/api/ack.json?op=accuse&case=103",
+     "status": 200,
+     "ms": 1.77
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 3.197
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.588
+    },
+    {
+     "url": "http://localhost:4400/api/ack.json?op=close&case=103",
+     "status": 200,
+     "ms": 1.623
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.24
+    }
+   ],
+   "consoleErrors": []
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5668,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('heading', { name: 'Closed cases (2)', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('heading', { name: 'Closed cases (2)', exact: true }) with timeout 5000ms\n  - waiting for getByRole('heading', { name: 'Closed cases (2)', exact: true })\n",
+   "locator": "getByRole('heading', { name: 'Closed cases (2)', exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 1.556
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 6.209
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.536
+    },
+    {
+     "url": "http://localhost:4400/api/ack.json?op=accuse&case=103",
+     "status": 200,
+     "ms": 2.903
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.9649999999999999
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.214
+    },
+    {
+     "url": "http://localhost:4400/api/ack.json?op=close&case=103",
+     "status": 200,
+     "ms": 1.669
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.609
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: \"Casebook São Paulo Detective Agency (a test target, not a real agency) release: bug-close\"\n- main:\n  - heading \"Case board\" [level=1]\n  - paragraph: Welcome back, Det. Holmes Silva.\n  - region \"Open cases (3)\":\n    - heading \"Open cases (3)\" [level=2]\n    - list:\n      - listitem:\n        - heading \"The Missing Brigadeiro\" [level=3]\n        - paragraph: Vila Madalena · open · 2 evidence\n        - 'link \"Open case file: The Missing Brigadeiro\"':\n          - /url: \"#/case/101\"\n          - text: Open case file\n      - listitem:\n        - heading \"The Vanishing Bilhete Único\" [level=3]\n        - paragraph: Sé · open · 1 evidence\n        - 'link \"Open case file: The Vanishing Bilhete Único\"':\n          - /url: \"#/case/102\"\n          - text: Open case file\n      - listitem:\n        - heading \"The Midnight Samba\" [level=3]\n        - paragraph: Liberdade · solved · 0 evidence\n        - 'link \"Open case file: The Midnight Samba\"':\n          - /url: \"#/case/103\"\n          - text: Open case file\n  - region \"Closed cases (1)\":\n    - heading \"Closed cases (1)\" [level=2]\n    - list:\n      - listitem:\n        - heading \"The Silent Pandeiro\" [level=3]\n        - paragraph: Lapa · closed · 1 evidence\n        - 'link \"Open case file: The Silent Pandeiro\"':\n          - /url: \"#/case/104\"\n          - text: Open case file",
+ "screenshot": "cases/20261026T202801Z-lg7fm6-2.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 1,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 0,
+  "console_errors": 0,
+  "slowest_api_s": 0,
+  "slow_api_calls": 0,
+  "error_banner": 0,
+  "heal_score": 0.724
+ },
+ "suspects": {
+  "flaky": 0,
+  "environment": 0,
+  "real_bug": 0,
+  "outdated_test": 1
+ },
+ "verdict": {
+  "cause": "outdated_test",
+  "confidence": 1,
+  "by": "rules"
+ },
+ "rulesVerdict": "outdated_test",
+ "healLeads": [
+  {
+   "locator": "getByRole('heading', { name: 'Closed cases (1)' })",
+   "score": 0.724,
+   "candidate": {
+    "role": "heading",
+    "name": "Closed cases (1)",
+    "testId": null,
+    "tag": "h2"
+   }
+  },
+  {
+   "locator": "getByRole('heading', { name: 'Open cases (3)' })",
+   "score": 0.37,
+   "candidate": {
+    "role": "heading",
+    "name": "Open cases (3)",
+    "testId": null,
+    "tag": "h2"
+   }
+  },
+  {
+   "locator": "getByRole('heading', { name: 'Case board' })",
+   "score": 0.202,
+   "candidate": {
+    "role": "heading",
+    "name": "Case board",
+    "testId": null,
+    "tag": "h1"
+   }
+  }
+ ],
+ "truth": {
+  "scenario": "bug-close",
+  "cause": "real_bug"
+ }
+}

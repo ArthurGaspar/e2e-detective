@@ -1,0 +1,169 @@
+{
+ "_id": "20261026T202602Z-32n74v-2",
+ "runId": "20261026T202602Z-32n74v",
+ "openedAt": "2026-10-26T20:26:22.766Z",
+ "test": {
+  "key": "add-evidence.spec.ts > add evidence",
+  "title": "add evidence",
+  "file": "generated/add-evidence.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 6241,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Evidence (2)', { exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByText('Evidence (2)', { exact: true }) with timeout 5000ms\n  - waiting for getByText('Evidence (2)', { exact: true })\n",
+   "locator": "getByText('Evidence (2)', { exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 2.232
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.839
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.2560000000000002
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.524
+    },
+    {
+     "url": "http://localhost:4400/api/ack.json?op=evidence&case=102",
+     "status": 200,
+     "ms": 3.638
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.6880000000000002
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.642
+    }
+   ],
+   "consoleErrors": []
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5676,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Evidence (2)', { exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByText('Evidence (2)', { exact: true }) with timeout 5000ms\n  - waiting for getByText('Evidence (2)', { exact: true })\n",
+   "locator": "getByText('Evidence (2)', { exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 1.815
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.022
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.8070000000000004
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 2.2359999999999998
+    },
+    {
+     "url": "http://localhost:4400/api/ack.json?op=evidence&case=102",
+     "status": 200,
+     "ms": 2.71
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.563
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 1.94
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: \"Casebook São Paulo Detective Agency (a test target, not a real agency) release: bug-evidence\"\n- main:\n  - article:\n    - link \"← Case board\":\n      - /url: \"#/board\"\n    - heading \"The Vanishing Bilhete Único\" [level=1]\n    - paragraph: Sé · open\n    - paragraph: A transit card disappeared between two turnstiles at Sé station.\n    - heading \"Suspects\" [level=2]\n    - list:\n      - listitem:\n        - strong: Station guard Rui\n        - paragraph: On shift, but on a coffee break.\n        - button \"Accuse Station guard Rui\"\n      - listitem:\n        - strong: Street vendor Lia\n        - paragraph: Sells card holders right next to the gate.\n        - button \"Accuse Street vendor Lia\"\n      - listitem:\n        - strong: Commuter Beto\n        - paragraph: Late for work and in a hurry.\n        - button \"Accuse Commuter Beto\"\n    - heading \"Evidence (1)\" [level=2]\n    - list:\n      - listitem: ▸ Camera 4 was pointed at the ceiling.\n      - listitem: ▸ Ticket stub found behind the vending machine.\n    - text: New evidence\n    - textbox \"New evidence\"\n    - button \"Add evidence\"\n    - button \"Close case\" [disabled]",
+ "screenshot": "cases/20261026T202602Z-32n74v-2.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 1,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 0,
+  "console_errors": 0,
+  "slowest_api_s": 0,
+  "slow_api_calls": 0,
+  "error_banner": 0,
+  "heal_score": 0.44
+ },
+ "suspects": {
+  "flaky": 0,
+  "environment": 0,
+  "real_bug": 0,
+  "outdated_test": 1
+ },
+ "verdict": {
+  "cause": "outdated_test",
+  "confidence": 1,
+  "by": "rules"
+ },
+ "rulesVerdict": "outdated_test",
+ "healLeads": [
+  {
+   "locator": "getByRole('heading', { name: 'Evidence (1)' })",
+   "score": 0.44,
+   "candidate": {
+    "role": "heading",
+    "name": "Evidence (1)",
+    "testId": null,
+    "tag": "h2"
+   }
+  },
+  {
+   "locator": "getByRole('textbox', { name: 'New evidence' })",
+   "score": 0.4,
+   "candidate": {
+    "role": "textbox",
+    "name": "New evidence",
+    "testId": null,
+    "tag": "textarea"
+   }
+  },
+  {
+   "locator": "getByRole('button', { name: 'Add evidence' })",
+   "score": 0.4,
+   "candidate": {
+    "role": "button",
+    "name": "Add evidence",
+    "testId": "add-evidence",
+    "tag": "button"
+   }
+  }
+ ],
+ "truth": {
+  "scenario": "bug-evidence",
+  "cause": "real_bug"
+ }
+}

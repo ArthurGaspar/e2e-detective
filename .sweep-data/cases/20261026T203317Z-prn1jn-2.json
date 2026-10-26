@@ -1,0 +1,119 @@
+{
+ "_id": "20261026T203317Z-prn1jn-2",
+ "runId": "20261026T203317Z-prn1jn",
+ "openedAt": "2026-10-26T20:33:37.374Z",
+ "test": {
+  "key": "add-evidence.spec.ts > add evidence",
+  "title": "add evidence",
+  "file": "generated/add-evidence.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 5866,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('link', { name: 'Open case file: The Vanishing Bilhete Único', exact: true })\n",
+   "locator": "getByRole('link', { name: 'Open case file: The Vanishing Bilhete Único', exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 1.447
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 3.196
+    }
+   ],
+   "consoleErrors": []
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5469,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('link', { name: 'Open case file: The Vanishing Bilhete Único', exact: true })\n",
+   "locator": "getByRole('link', { name: 'Open case file: The Vanishing Bilhete Único', exact: true })",
+   "api": [
+    {
+     "url": "http://localhost:4400/api/detectives.json",
+     "status": 200,
+     "ms": 2.4370000000000003
+    },
+    {
+     "url": "http://localhost:4400/api/cases.json",
+     "status": 200,
+     "ms": 3.45
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: \"Casebook São Paulo Detective Agency (a test target, not a real agency) release: redesign\"\n- main:\n  - heading \"Investigations\" [level=1]\n  - paragraph: Welcome back, Det. Holmes Silva.\n  - region \"Active investigations (3)\":\n    - heading \"Active investigations (3)\" [level=2]\n    - list:\n      - listitem:\n        - heading \"The Missing Brigadeiro\" [level=3]\n        - paragraph: Vila Madalena · open · 2 evidence\n        - 'link \"View file: The Missing Brigadeiro\"':\n          - /url: \"#/case/101\"\n          - text: View file\n      - listitem:\n        - heading \"The Vanishing Bilhete Único\" [level=3]\n        - paragraph: Sé · open · 1 evidence\n        - 'link \"View file: The Vanishing Bilhete Único\"':\n          - /url: \"#/case/102\"\n          - text: View file\n      - listitem:\n        - heading \"The Midnight Samba\" [level=3]\n        - paragraph: Liberdade · open · 0 evidence\n        - 'link \"View file: The Midnight Samba\"':\n          - /url: \"#/case/103\"\n          - text: View file\n  - region \"Archive (1)\":\n    - heading \"Archive (1)\" [level=2]\n    - list:\n      - listitem:\n        - heading \"The Silent Pandeiro\" [level=3]\n        - paragraph: Lapa · closed · 1 evidence\n        - 'link \"View file: The Silent Pandeiro\"':\n          - /url: \"#/case/104\"\n          - text: View file",
+ "screenshot": "cases/20261026T203317Z-prn1jn-2.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 1,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 0,
+  "console_errors": 0,
+  "slowest_api_s": 0,
+  "slow_api_calls": 0,
+  "error_banner": 0,
+  "heal_score": 0.8
+ },
+ "suspects": {
+  "flaky": 0,
+  "environment": 0,
+  "real_bug": 0,
+  "outdated_test": 1
+ },
+ "verdict": {
+  "cause": "outdated_test",
+  "confidence": 1,
+  "by": "rules"
+ },
+ "rulesVerdict": "outdated_test",
+ "healLeads": [
+  {
+   "locator": "getByRole('link', { name: 'View file: The Vanishing Bilhete Único' })",
+   "score": 0.8,
+   "candidate": {
+    "role": "link",
+    "name": "View file: The Vanishing Bilhete Único",
+    "testId": null,
+    "tag": "a"
+   }
+  },
+  {
+   "locator": "getByRole('heading', { name: 'The Vanishing Bilhete Único' })",
+   "score": 0.594,
+   "candidate": {
+    "role": "heading",
+    "name": "The Vanishing Bilhete Único",
+    "testId": null,
+    "tag": "h3"
+   }
+  },
+  {
+   "locator": "getByTestId('case-card')",
+   "score": 0.53,
+   "candidate": {
+    "role": "generic",
+    "name": "The Vanishing Bilhete Único Sé · open · 1 evidence View file",
+    "testId": "case-card",
+    "tag": "li"
+   }
+  }
+ ],
+ "truth": {
+  "scenario": "redesign",
+  "cause": "outdated_test"
+ }
+}

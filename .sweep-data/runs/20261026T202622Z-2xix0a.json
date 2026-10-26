@@ -1,0 +1,54 @@
+{
+ "_id": "20261026T202622Z-2xix0a",
+ "startedAt": "2026-10-26T20:26:22.777Z",
+ "finishedAt": "2026-10-26T20:26:55.586Z",
+ "target": "http://localhost:4400/",
+ "trigger": "sweep",
+ "tests": [
+  {
+   "key": "accuse-suspect.spec.ts > accuse the right suspect",
+   "title": "accuse the right suspect",
+   "outcome": "unexpected",
+   "durationMs": 11570,
+   "scenario": "outage",
+   "cause": "environment",
+   "caseId": "20261026T202622Z-2xix0a-1"
+  },
+  {
+   "key": "add-evidence.spec.ts > add evidence",
+   "title": "add evidence",
+   "outcome": "unexpected",
+   "durationMs": 11612,
+   "scenario": "redesign",
+   "cause": "outdated_test",
+   "caseId": "20261026T202622Z-2xix0a-2"
+  },
+  {
+   "key": "close-case.spec.ts > close a solved case",
+   "title": "close a solved case",
+   "outcome": "unexpected",
+   "durationMs": 11788,
+   "scenario": "outage",
+   "cause": "environment",
+   "caseId": "20261026T202622Z-2xix0a-3"
+  },
+  {
+   "key": "open-case.spec.ts > open a case file",
+   "title": "open a case file",
+   "outcome": "unexpected",
+   "durationMs": 11665,
+   "scenario": "latency",
+   "cause": "flaky",
+   "caseId": "20261026T202622Z-2xix0a-4"
+  },
+  {
+   "key": "sign-in.spec.ts > detective signs in and sees the case board",
+   "title": "detective signs in and sees the case board",
+   "outcome": "unexpected",
+   "durationMs": 10776,
+   "scenario": "redesign",
+   "cause": "outdated_test",
+   "caseId": "20261026T202622Z-2xix0a-5"
+  }
+ ]
+}

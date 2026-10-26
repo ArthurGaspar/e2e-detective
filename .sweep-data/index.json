@@ -1,0 +1,856 @@
+{
+ "updatedAt": "2026-10-26T20:23:51.500Z",
+ "cases": [
+  {
+   "_id": "20261026T202321Z-etexd5-3",
+   "runId": "20261026T202321Z-etexd5",
+   "openedAt": "2026-10-26T20:23:41.963Z",
+   "test": "open a case file",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T202321Z-etexd5-2",
+   "runId": "20261026T202321Z-etexd5",
+   "openedAt": "2026-10-26T20:23:41.963Z",
+   "test": "close a solved case",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "real_bug",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T202321Z-etexd5-1",
+   "runId": "20261026T202321Z-etexd5",
+   "openedAt": "2026-10-26T20:23:41.963Z",
+   "test": "accuse the right suspect",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T202259Z-ocrm0q-4",
+   "runId": "20261026T202259Z-ocrm0q",
+   "openedAt": "2026-10-26T20:23:21.206Z",
+   "test": "open a case file",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202259Z-ocrm0q-3",
+   "runId": "20261026T202259Z-ocrm0q",
+   "openedAt": "2026-10-26T20:23:21.206Z",
+   "test": "close a solved case",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202259Z-ocrm0q-2",
+   "runId": "20261026T202259Z-ocrm0q",
+   "openedAt": "2026-10-26T20:23:21.206Z",
+   "test": "add evidence",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T202259Z-ocrm0q-1",
+   "runId": "20261026T202259Z-ocrm0q",
+   "openedAt": "2026-10-26T20:23:21.206Z",
+   "test": "accuse the right suspect",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202238Z-nza7oa-3",
+   "runId": "20261026T202238Z-nza7oa",
+   "openedAt": "2026-10-26T20:22:59.399Z",
+   "test": "open a case file",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202238Z-nza7oa-2",
+   "runId": "20261026T202238Z-nza7oa",
+   "openedAt": "2026-10-26T20:22:59.399Z",
+   "test": "close a solved case",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "real_bug",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T202238Z-nza7oa-1",
+   "runId": "20261026T202238Z-nza7oa",
+   "openedAt": "2026-10-26T20:22:59.399Z",
+   "test": "add evidence",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T202217Z-7yjknu-4",
+   "runId": "20261026T202217Z-7yjknu",
+   "openedAt": "2026-10-26T20:22:38.656Z",
+   "test": "detective signs in and sees the case board",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202217Z-7yjknu-3",
+   "runId": "20261026T202217Z-7yjknu",
+   "openedAt": "2026-10-26T20:22:38.656Z",
+   "test": "close a solved case",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202217Z-7yjknu-2",
+   "runId": "20261026T202217Z-7yjknu",
+   "openedAt": "2026-10-26T20:22:38.656Z",
+   "test": "add evidence",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T202217Z-7yjknu-1",
+   "runId": "20261026T202217Z-7yjknu",
+   "openedAt": "2026-10-26T20:22:38.656Z",
+   "test": "accuse the right suspect",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202144Z-su2hml-5",
+   "runId": "20261026T202144Z-su2hml",
+   "openedAt": "2026-10-26T20:22:17.562Z",
+   "test": "detective signs in and sees the case board",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202144Z-su2hml-4",
+   "runId": "20261026T202144Z-su2hml",
+   "openedAt": "2026-10-26T20:22:17.562Z",
+   "test": "open a case file",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202144Z-su2hml-3",
+   "runId": "20261026T202144Z-su2hml",
+   "openedAt": "2026-10-26T20:22:17.562Z",
+   "test": "close a solved case",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202144Z-su2hml-2",
+   "runId": "20261026T202144Z-su2hml",
+   "openedAt": "2026-10-26T20:22:17.562Z",
+   "test": "add evidence",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T202144Z-su2hml-1",
+   "runId": "20261026T202144Z-su2hml",
+   "openedAt": "2026-10-26T20:22:17.562Z",
+   "test": "accuse the right suspect",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202122Z-nw434r-4",
+   "runId": "20261026T202122Z-nw434r",
+   "openedAt": "2026-10-26T20:21:44.110Z",
+   "test": "detective signs in and sees the case board",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202122Z-nw434r-3",
+   "runId": "20261026T202122Z-nw434r",
+   "openedAt": "2026-10-26T20:21:44.110Z",
+   "test": "close a solved case",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202122Z-nw434r-2",
+   "runId": "20261026T202122Z-nw434r",
+   "openedAt": "2026-10-26T20:21:44.110Z",
+   "test": "add evidence",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202122Z-nw434r-1",
+   "runId": "20261026T202122Z-nw434r",
+   "openedAt": "2026-10-26T20:21:44.110Z",
+   "test": "accuse the right suspect",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202059Z-uuf74x-4",
+   "runId": "20261026T202059Z-uuf74x",
+   "openedAt": "2026-10-26T20:21:22.800Z",
+   "test": "detective signs in and sees the case board",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202059Z-uuf74x-3",
+   "runId": "20261026T202059Z-uuf74x",
+   "openedAt": "2026-10-26T20:21:22.800Z",
+   "test": "open a case file",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T202059Z-uuf74x-2",
+   "runId": "20261026T202059Z-uuf74x",
+   "openedAt": "2026-10-26T20:21:22.800Z",
+   "test": "close a solved case",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202059Z-uuf74x-1",
+   "runId": "20261026T202059Z-uuf74x",
+   "openedAt": "2026-10-26T20:21:22.800Z",
+   "test": "accuse the right suspect",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T202028Z-6tdc07-1",
+   "runId": "20261026T202028Z-6tdc07",
+   "openedAt": "2026-10-26T20:20:46.470Z",
+   "test": "close a solved case",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202009Z-rujy9z-3",
+   "runId": "20261026T202009Z-rujy9z",
+   "openedAt": "2026-10-26T20:20:28.440Z",
+   "test": "open a case file",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202009Z-rujy9z-2",
+   "runId": "20261026T202009Z-rujy9z",
+   "openedAt": "2026-10-26T20:20:28.440Z",
+   "test": "close a solved case",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T202009Z-rujy9z-1",
+   "runId": "20261026T202009Z-rujy9z",
+   "openedAt": "2026-10-26T20:20:28.440Z",
+   "test": "accuse the right suspect",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201951Z-zdfan9-1",
+   "runId": "20261026T201951Z-zdfan9",
+   "openedAt": "2026-10-26T20:20:09.713Z",
+   "test": "close a solved case",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "real_bug",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201932Z-fqfo9b-4",
+   "runId": "20261026T201932Z-fqfo9b",
+   "openedAt": "2026-10-26T20:19:51.427Z",
+   "test": "detective signs in and sees the case board",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201932Z-fqfo9b-3",
+   "runId": "20261026T201932Z-fqfo9b",
+   "openedAt": "2026-10-26T20:19:51.427Z",
+   "test": "open a case file",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201932Z-fqfo9b-2",
+   "runId": "20261026T201932Z-fqfo9b",
+   "openedAt": "2026-10-26T20:19:51.427Z",
+   "test": "add evidence",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201932Z-fqfo9b-1",
+   "runId": "20261026T201932Z-fqfo9b",
+   "openedAt": "2026-10-26T20:19:51.427Z",
+   "test": "accuse the right suspect",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201914Z-5wd3du-1",
+   "runId": "20261026T201914Z-5wd3du",
+   "openedAt": "2026-10-26T20:19:32.272Z",
+   "test": "close a solved case",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201856Z-tghms7-2",
+   "runId": "20261026T201856Z-tghms7",
+   "openedAt": "2026-10-26T20:19:14.121Z",
+   "test": "close a solved case",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "real_bug",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201856Z-tghms7-1",
+   "runId": "20261026T201856Z-tghms7",
+   "openedAt": "2026-10-26T20:19:14.121Z",
+   "test": "accuse the right suspect",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201837Z-lqjm2h-2",
+   "runId": "20261026T201837Z-lqjm2h",
+   "openedAt": "2026-10-26T20:18:56.018Z",
+   "test": "open a case file",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201837Z-lqjm2h-1",
+   "runId": "20261026T201837Z-lqjm2h",
+   "openedAt": "2026-10-26T20:18:56.018Z",
+   "test": "close a solved case",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "real_bug",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201819Z-v0aiex-1",
+   "runId": "20261026T201819Z-v0aiex",
+   "openedAt": "2026-10-26T20:18:37.674Z",
+   "test": "open a case file",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201801Z-861fyd-2",
+   "runId": "20261026T201801Z-861fyd",
+   "openedAt": "2026-10-26T20:18:19.913Z",
+   "test": "open a case file",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201801Z-861fyd-1",
+   "runId": "20261026T201801Z-861fyd",
+   "openedAt": "2026-10-26T20:18:19.913Z",
+   "test": "close a solved case",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201742Z-cunbmj-4",
+   "runId": "20261026T201742Z-cunbmj",
+   "openedAt": "2026-10-26T20:18:01.812Z",
+   "test": "detective signs in and sees the case board",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201742Z-cunbmj-3",
+   "runId": "20261026T201742Z-cunbmj",
+   "openedAt": "2026-10-26T20:18:01.812Z",
+   "test": "open a case file",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201742Z-cunbmj-2",
+   "runId": "20261026T201742Z-cunbmj",
+   "openedAt": "2026-10-26T20:18:01.812Z",
+   "test": "close a solved case",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201742Z-cunbmj-1",
+   "runId": "20261026T201742Z-cunbmj",
+   "openedAt": "2026-10-26T20:18:01.812Z",
+   "test": "add evidence",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201724Z-dtw4og-2",
+   "runId": "20261026T201724Z-dtw4og",
+   "openedAt": "2026-10-26T20:17:42.714Z",
+   "test": "close a solved case",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201724Z-dtw4og-1",
+   "runId": "20261026T201724Z-dtw4og",
+   "openedAt": "2026-10-26T20:17:42.714Z",
+   "test": "accuse the right suspect",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "real_bug",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201649Z-cvyyhl-2",
+   "runId": "20261026T201649Z-cvyyhl",
+   "openedAt": "2026-10-26T20:17:10.049Z",
+   "test": "open a case file",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201649Z-cvyyhl-1",
+   "runId": "20261026T201649Z-cvyyhl",
+   "openedAt": "2026-10-26T20:17:10.049Z",
+   "test": "close a solved case",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "real_bug",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201630Z-bdapr5-1",
+   "runId": "20261026T201630Z-bdapr5",
+   "openedAt": "2026-10-26T20:16:49.019Z",
+   "test": "open a case file",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201612Z-2vhi9r-2",
+   "runId": "20261026T201612Z-2vhi9r",
+   "openedAt": "2026-10-26T20:16:30.925Z",
+   "test": "close a solved case",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "real_bug",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201612Z-2vhi9r-1",
+   "runId": "20261026T201612Z-2vhi9r",
+   "openedAt": "2026-10-26T20:16:30.925Z",
+   "test": "add evidence",
+   "verdict": "environment",
+   "confidence": 1,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201554Z-mrlied-1",
+   "runId": "20261026T201554Z-mrlied",
+   "openedAt": "2026-10-26T20:16:12.580Z",
+   "test": "close a solved case",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "real_bug",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201535Z-26ah13-3",
+   "runId": "20261026T201535Z-26ah13",
+   "openedAt": "2026-10-26T20:15:54.007Z",
+   "test": "close a solved case",
+   "verdict": "real_bug",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261026T201535Z-26ah13-2",
+   "runId": "20261026T201535Z-26ah13",
+   "openedAt": "2026-10-26T20:15:54.007Z",
+   "test": "add evidence",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261026T201535Z-26ah13-1",
+   "runId": "20261026T201535Z-26ah13",
+   "openedAt": "2026-10-26T20:15:54.007Z",
+   "test": "accuse the right suspect",
+   "verdict": "outdated_test",
+   "confidence": 1,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  }
+ ],
+ "runs": [
+  {
+   "_id": "20261026T202321Z-etexd5",
+   "startedAt": "2026-10-26T20:23:21.216Z",
+   "trigger": "sweep",
+   "passed": 2,
+   "failed": 3,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T202259Z-ocrm0q",
+   "startedAt": "2026-10-26T20:22:59.407Z",
+   "trigger": "sweep",
+   "passed": 1,
+   "failed": 4,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T202238Z-nza7oa",
+   "startedAt": "2026-10-26T20:22:38.667Z",
+   "trigger": "sweep",
+   "passed": 2,
+   "failed": 3,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T202217Z-7yjknu",
+   "startedAt": "2026-10-26T20:22:17.577Z",
+   "trigger": "sweep",
+   "passed": 1,
+   "failed": 4,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T202144Z-su2hml",
+   "startedAt": "2026-10-26T20:21:44.129Z",
+   "trigger": "sweep",
+   "passed": 0,
+   "failed": 5,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T202122Z-nw434r",
+   "startedAt": "2026-10-26T20:21:22.817Z",
+   "trigger": "sweep",
+   "passed": 1,
+   "failed": 4,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T202059Z-uuf74x",
+   "startedAt": "2026-10-26T20:20:59.911Z",
+   "trigger": "sweep",
+   "passed": 1,
+   "failed": 4,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T202028Z-6tdc07",
+   "startedAt": "2026-10-26T20:20:28.448Z",
+   "trigger": "sweep",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T202009Z-rujy9z",
+   "startedAt": "2026-10-26T20:20:09.718Z",
+   "trigger": "sweep",
+   "passed": 2,
+   "failed": 3,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201951Z-zdfan9",
+   "startedAt": "2026-10-26T20:19:51.439Z",
+   "trigger": "sweep",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201932Z-fqfo9b",
+   "startedAt": "2026-10-26T20:19:32.276Z",
+   "trigger": "sweep",
+   "passed": 1,
+   "failed": 4,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201914Z-5wd3du",
+   "startedAt": "2026-10-26T20:19:14.128Z",
+   "trigger": "sweep",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201856Z-tghms7",
+   "startedAt": "2026-10-26T20:18:56.024Z",
+   "trigger": "sweep",
+   "passed": 3,
+   "failed": 2,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201837Z-lqjm2h",
+   "startedAt": "2026-10-26T20:18:37.678Z",
+   "trigger": "sweep",
+   "passed": 3,
+   "failed": 2,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201819Z-v0aiex",
+   "startedAt": "2026-10-26T20:18:19.919Z",
+   "trigger": "sweep",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201801Z-861fyd",
+   "startedAt": "2026-10-26T20:18:01.823Z",
+   "trigger": "sweep",
+   "passed": 3,
+   "failed": 2,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201742Z-cunbmj",
+   "startedAt": "2026-10-26T20:17:42.720Z",
+   "trigger": "sweep",
+   "passed": 1,
+   "failed": 4,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201724Z-dtw4og",
+   "startedAt": "2026-10-26T20:17:24.693Z",
+   "trigger": "sweep",
+   "passed": 3,
+   "failed": 2,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201717Z-mtlojz",
+   "startedAt": "2026-10-26T20:17:17.571Z",
+   "trigger": "sweep",
+   "passed": 5,
+   "failed": 0,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201710Z-gkovwa",
+   "startedAt": "2026-10-26T20:17:10.056Z",
+   "trigger": "sweep",
+   "passed": 5,
+   "failed": 0,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201649Z-cvyyhl",
+   "startedAt": "2026-10-26T20:16:49.022Z",
+   "trigger": "sweep",
+   "passed": 3,
+   "failed": 2,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201630Z-bdapr5",
+   "startedAt": "2026-10-26T20:16:30.931Z",
+   "trigger": "sweep",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201612Z-2vhi9r",
+   "startedAt": "2026-10-26T20:16:12.584Z",
+   "trigger": "sweep",
+   "passed": 3,
+   "failed": 2,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201554Z-mrlied",
+   "startedAt": "2026-10-26T20:15:54.026Z",
+   "trigger": "sweep",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  },
+  {
+   "_id": "20261026T201535Z-26ah13",
+   "startedAt": "2026-10-26T20:15:35.641Z",
+   "trigger": "sweep",
+   "passed": 2,
+   "failed": 3,
+   "flaky": 0
+  }
+ ]
+}

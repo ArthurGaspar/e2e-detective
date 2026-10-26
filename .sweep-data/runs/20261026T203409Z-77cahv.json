@@ -1,0 +1,53 @@
+{
+ "_id": "20261026T203409Z-77cahv",
+ "startedAt": "2026-10-26T20:34:09.794Z",
+ "finishedAt": "2026-10-26T20:34:30.225Z",
+ "target": "http://localhost:4400/",
+ "trigger": "sweep",
+ "tests": [
+  {
+   "key": "accuse-suspect.spec.ts > accuse the right suspect",
+   "title": "accuse the right suspect",
+   "outcome": "unexpected",
+   "durationMs": 11543,
+   "scenario": "redesign",
+   "cause": "outdated_test",
+   "caseId": "20261026T203409Z-77cahv-1"
+  },
+  {
+   "key": "add-evidence.spec.ts > add evidence",
+   "title": "add evidence",
+   "outcome": "unexpected",
+   "durationMs": 11453,
+   "scenario": "drop",
+   "cause": "environment",
+   "caseId": "20261026T203409Z-77cahv-2"
+  },
+  {
+   "key": "close-case.spec.ts > close a solved case",
+   "title": "close a solved case",
+   "outcome": "unexpected",
+   "durationMs": 11630,
+   "scenario": "latency",
+   "cause": "flaky",
+   "caseId": "20261026T203409Z-77cahv-3"
+  },
+  {
+   "key": "open-case.spec.ts > open a case file",
+   "title": "open a case file",
+   "outcome": "expected",
+   "durationMs": 0,
+   "scenario": "bug-close",
+   "cause": "real_bug"
+  },
+  {
+   "key": "sign-in.spec.ts > detective signs in and sees the case board",
+   "title": "detective signs in and sees the case board",
+   "outcome": "unexpected",
+   "durationMs": 10752,
+   "scenario": "latency",
+   "cause": "flaky",
+   "caseId": "20261026T203409Z-77cahv-4"
+  }
+ ]
+}
