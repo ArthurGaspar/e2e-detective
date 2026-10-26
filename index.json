@@ -1,0 +1,26 @@
+{
+ "updatedAt": "2026-10-26T21:13:50.198Z",
+ "cases": [
+  {
+   "_id": "20261026T211335Z-3skuig-1",
+   "runId": "20261026T211335Z-3skuig",
+   "openedAt": "2026-10-26T21:13:50.194Z",
+   "test": "add evidence",
+   "verdict": "outdated_test",
+   "confidence": 0.926,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  }
+ ],
+ "runs": [
+  {
+   "_id": "20261026T211335Z-3skuig",
+   "startedAt": "2026-10-26T21:13:35.699Z",
+   "trigger": "workflow_run",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  }
+ ]
+}
