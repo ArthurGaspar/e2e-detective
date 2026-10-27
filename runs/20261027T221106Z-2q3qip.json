@@ -1,0 +1,52 @@
+{
+ "_id": "20261027T221106Z-2q3qip",
+ "startedAt": "2026-10-27T22:11:06.165Z",
+ "finishedAt": "2026-10-27T22:11:31.644Z",
+ "target": "https://arthurgaspar.github.io/e2e-detective/crime-scene/",
+ "trigger": "schedule",
+ "tests": [
+  {
+   "key": "accuse-suspect.spec.ts > accuse the right suspect",
+   "title": "accuse the right suspect",
+   "outcome": "unexpected",
+   "durationMs": 10878,
+   "scenario": "drop",
+   "cause": "environment",
+   "caseId": "20261027T221106Z-2q3qip-1"
+  },
+  {
+   "key": "add-evidence.spec.ts > add evidence",
+   "title": "add evidence",
+   "outcome": "expected",
+   "durationMs": 0,
+   "scenario": "clean",
+   "cause": null
+  },
+  {
+   "key": "close-case.spec.ts > close a solved case",
+   "title": "close a solved case",
+   "outcome": "unexpected",
+   "durationMs": 10852,
+   "scenario": "bug-accuse",
+   "cause": "real_bug",
+   "caseId": "20261027T221106Z-2q3qip-2"
+  },
+  {
+   "key": "open-case.spec.ts > open a case file",
+   "title": "open a case file",
+   "outcome": "expected",
+   "durationMs": 0,
+   "scenario": "clean",
+   "cause": null
+  },
+  {
+   "key": "sign-in.spec.ts > detective signs in and sees the case board",
+   "title": "detective signs in and sees the case board",
+   "outcome": "unexpected",
+   "durationMs": 10620,
+   "scenario": "latency",
+   "cause": "flaky",
+   "caseId": "20261027T221106Z-2q3qip-3"
+  }
+ ]
+}
