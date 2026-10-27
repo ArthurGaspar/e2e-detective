@@ -1,6 +1,39 @@
 {
- "updatedAt": "2026-10-27T08:56:53.255Z",
+ "updatedAt": "2026-10-27T15:20:49.638Z",
  "cases": [
+  {
+   "_id": "20261027T152021Z-yd1sws-3",
+   "runId": "20261027T152021Z-yd1sws",
+   "openedAt": "2026-10-27T15:20:49.618Z",
+   "test": "detective signs in and sees the case board",
+   "verdict": "environment",
+   "confidence": 0.983,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261027T152021Z-yd1sws-2",
+   "runId": "20261027T152021Z-yd1sws",
+   "openedAt": "2026-10-27T15:20:49.618Z",
+   "test": "add evidence",
+   "verdict": "flaky",
+   "confidence": 0.993,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261027T152021Z-yd1sws-1",
+   "runId": "20261027T152021Z-yd1sws",
+   "openedAt": "2026-10-27T15:20:49.618Z",
+   "test": "accuse the right suspect",
+   "verdict": "outdated_test",
+   "confidence": 0.98,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
   {
    "_id": "20261027T085637Z-okzoi5-1",
    "runId": "20261027T085637Z-okzoi5",
@@ -2170,6 +2203,14 @@
   }
  ],
  "runs": [
+  {
+   "_id": "20261027T152021Z-yd1sws",
+   "startedAt": "2026-10-27T15:20:21.646Z",
+   "trigger": "schedule",
+   "passed": 2,
+   "failed": 3,
+   "flaky": 0
+  },
   {
    "_id": "20261027T085637Z-okzoi5",
    "startedAt": "2026-10-27T08:56:37.111Z",
