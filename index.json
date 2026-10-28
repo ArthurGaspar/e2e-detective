@@ -1,6 +1,17 @@
 {
- "updatedAt": "2026-10-28T05:37:39.778Z",
+ "updatedAt": "2026-10-28T12:48:14.372Z",
  "cases": [
+  {
+   "_id": "20261028T124758Z-4nh4kq-1",
+   "runId": "20261028T124758Z-4nh4kq",
+   "openedAt": "2026-10-28T12:48:14.355Z",
+   "test": "close a solved case",
+   "verdict": "outdated_test",
+   "confidence": 0.897,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
   {
    "_id": "20261028T053725Z-81xokv-1",
    "runId": "20261028T053725Z-81xokv",
@@ -2247,6 +2258,14 @@
   }
  ],
  "runs": [
+  {
+   "_id": "20261028T124758Z-4nh4kq",
+   "startedAt": "2026-10-28T12:47:58.779Z",
+   "trigger": "schedule",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  },
   {
    "_id": "20261028T053725Z-81xokv",
    "startedAt": "2026-10-28T05:37:25.643Z",
