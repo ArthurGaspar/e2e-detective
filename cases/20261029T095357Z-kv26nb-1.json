@@ -1,0 +1,81 @@
+{
+ "_id": "20261029T095357Z-kv26nb-1",
+ "runId": "20261029T095357Z-kv26nb",
+ "openedAt": "2026-10-29T09:54:26.425Z",
+ "test": {
+  "key": "accuse-suspect.spec.ts > accuse the right suspect",
+  "title": "accuse the right suspect",
+  "file": "generated/accuse-suspect.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 5840,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('link', { name: 'Open case file: The Missing Brigadeiro', exact: true })\n",
+   "locator": "getByRole('link', { name: 'Open case file: The Missing Brigadeiro', exact: true })",
+   "api": [
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/detectives.json",
+     "status": 0,
+     "ms": 0
+    }
+   ],
+   "consoleErrors": []
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5570,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('link', { name: 'Open case file: The Missing Brigadeiro', exact: true })\n",
+   "locator": "getByRole('link', { name: 'Open case file: The Missing Brigadeiro', exact: true })",
+   "api": [
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/detectives.json",
+     "status": 0,
+     "ms": 0
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: Casebook São Paulo Detective Agency (a test target, not a real agency)\n- main:\n  - heading \"Detective sign-in\" [level=1]\n  - text: Badge number\n  - textbox \"Badge number\": 221B\n  - text: Password\n  - textbox \"Password\": elementary\n  - button \"Sign in\"",
+ "screenshot": "cases/20261029T095357Z-kv26nb-1.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 1,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 0,
+  "requests_pending": 2,
+  "console_errors": 0,
+  "slowest_api_s": 0,
+  "error_banner": 0,
+  "heal_score": 0,
+  "near_match_differs_by_number": 0,
+  "element_disabled": 0,
+  "failed_on_assertion": 0
+ },
+ "suspects": {
+  "flaky": 0.962,
+  "environment": 0.004,
+  "real_bug": 0.003,
+  "outdated_test": 0.031
+ },
+ "verdict": {
+  "cause": "flaky",
+  "confidence": 0.962,
+  "by": "model"
+ },
+ "rulesVerdict": "flaky",
+ "healLeads": [],
+ "truth": {
+  "scenario": "latency",
+  "cause": "flaky"
+ }
+}
