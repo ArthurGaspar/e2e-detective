@@ -1,0 +1,66 @@
+{
+ "_id": "20261029T182744Z-l5wxin-4",
+ "runId": "20261029T182744Z-l5wxin",
+ "openedAt": "2026-10-29T18:28:12.243Z",
+ "test": {
+  "key": "open-case.spec.ts > open a case file",
+  "title": "open a case file",
+  "file": "generated/open-case.spec.ts"
+ },
+ "outcome": "flaky",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 5415,
+   "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for getByRole('link', { name: 'Open case file: The Missing Brigadeiro', exact: true })\n",
+   "locator": "getByRole('link', { name: 'Open case file: The Missing Brigadeiro', exact: true })",
+   "api": [
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/detectives.json",
+     "status": 0,
+     "ms": 0
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: Casebook São Paulo Detective Agency (a test target, not a real agency)\n- main:\n  - heading \"Detective sign-in\" [level=1]\n  - text: Badge number\n  - textbox \"Badge number\": 221B\n  - text: Password\n  - textbox \"Password\": elementary\n  - button \"Sign in\"",
+ "screenshot": "cases/20261029T182744Z-l5wxin-4.jpg",
+ "features": {
+  "passed_on_retry": 1,
+  "failed_attempts": 1,
+  "same_error_every_attempt": 0,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 0,
+  "requests_pending": 1,
+  "console_errors": 0,
+  "slowest_api_s": 0,
+  "error_banner": 0,
+  "heal_score": 0,
+  "near_match_differs_by_number": 0,
+  "element_disabled": 0,
+  "failed_on_assertion": 0
+ },
+ "suspects": {
+  "flaky": 0.992,
+  "environment": 0.001,
+  "real_bug": 0.001,
+  "outdated_test": 0.006
+ },
+ "verdict": {
+  "cause": "flaky",
+  "confidence": 0.992,
+  "by": "model"
+ },
+ "rulesVerdict": "flaky",
+ "healLeads": [],
+ "truth": {
+  "scenario": "latency",
+  "cause": "flaky"
+ }
+}
