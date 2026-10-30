@@ -1,0 +1,91 @@
+{
+ "_id": "20261030T005742Z-byk14t-2",
+ "runId": "20261030T005742Z-byk14t",
+ "openedAt": "2026-10-30T00:57:57.689Z",
+ "test": {
+  "key": "close-case.spec.ts > close a solved case",
+  "title": "close a solved case",
+  "file": "generated/close-case.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 5403,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('heading', { name: 'Case Board' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('heading', { name: 'Case Board' }) with timeout 5000ms\n  - waiting for getByRole('heading', { name: 'Case Board' })\n",
+   "locator": "getByRole('heading', { name: 'Case Board' })",
+   "api": [
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/detectives.json",
+     "status": 200,
+     "ms": 77.477
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 0,
+     "ms": 0
+    }
+   ],
+   "consoleErrors": []
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5509,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('heading', { name: 'Case Board' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('heading', { name: 'Case Board' }) with timeout 5000ms\n  - waiting for getByRole('heading', { name: 'Case Board' })\n",
+   "locator": "getByRole('heading', { name: 'Case Board' })",
+   "api": [
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/detectives.json",
+     "status": 200,
+     "ms": 80.888
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 0,
+     "ms": 0
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: Casebook São Paulo Detective Agency (a test target, not a real agency)\n- main:\n  - paragraph: Opening the files…",
+ "screenshot": "cases/20261030T005742Z-byk14t-2.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 1,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 0,
+  "requests_pending": 2,
+  "console_errors": 0,
+  "slowest_api_s": 0.1,
+  "error_banner": 0,
+  "heal_score": 0,
+  "near_match_differs_by_number": 0,
+  "element_disabled": 0,
+  "failed_on_assertion": 1
+ },
+ "suspects": {
+  "flaky": 0.95,
+  "environment": 0.004,
+  "real_bug": 0.009,
+  "outdated_test": 0.037
+ },
+ "verdict": {
+  "cause": "flaky",
+  "confidence": 0.95,
+  "by": "model"
+ },
+ "rulesVerdict": "flaky",
+ "healLeads": [],
+ "truth": {
+  "scenario": "latency",
+  "cause": "flaky"
+ }
+}

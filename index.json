@@ -1,6 +1,28 @@
 {
- "updatedAt": "2026-10-29T18:28:12.265Z",
+ "updatedAt": "2026-10-30T00:57:57.704Z",
  "cases": [
+  {
+   "_id": "20261030T005742Z-byk14t-2",
+   "runId": "20261030T005742Z-byk14t",
+   "openedAt": "2026-10-30T00:57:57.689Z",
+   "test": "close a solved case",
+   "verdict": "flaky",
+   "confidence": 0.95,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261030T005742Z-byk14t-1",
+   "runId": "20261030T005742Z-byk14t",
+   "openedAt": "2026-10-30T00:57:57.689Z",
+   "test": "add evidence",
+   "verdict": "outdated_test",
+   "confidence": 0.974,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
   {
    "_id": "20261029T182744Z-l5wxin-4",
    "runId": "20261029T182744Z-l5wxin",
@@ -2434,6 +2456,14 @@
   }
  ],
  "runs": [
+  {
+   "_id": "20261030T005742Z-byk14t",
+   "startedAt": "2026-10-30T00:57:42.543Z",
+   "trigger": "schedule",
+   "passed": 3,
+   "failed": 2,
+   "flaky": 0
+  },
   {
    "_id": "20261029T182744Z-l5wxin",
    "startedAt": "2026-10-29T18:27:44.445Z",
