@@ -1,0 +1,91 @@
+{
+ "_id": "20261031T122113Z-hxc1p4-2",
+ "runId": "20261031T122113Z-hxc1p4",
+ "openedAt": "2026-10-31T12:21:40.209Z",
+ "test": {
+  "key": "close-case.spec.ts > close a solved case",
+  "title": "close a solved case",
+  "file": "generated/close-case.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 5295,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('heading', { name: 'Case Board' })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('heading', { name: 'Case Board' }) with timeout 5000ms\n  - waiting for getByRole('heading', { name: 'Case Board' })\n",
+   "locator": "getByRole('heading', { name: 'Case Board' })",
+   "api": [
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/detectives.json",
+     "status": 0,
+     "ms": 0
+    }
+   ],
+   "consoleErrors": []
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5560,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('button', { name: 'Accuse Smart speaker', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('button', { name: 'Accuse Smart speaker', exact: true }) with timeout 5000ms\n  - waiting for getByRole('button', { name: 'Accuse Smart speaker', exact: true })\n",
+   "locator": "getByRole('button', { name: 'Accuse Smart speaker', exact: true })",
+   "api": [
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/detectives.json",
+     "status": 200,
+     "ms": 73.28
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 71.57300000000001
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 0,
+     "ms": 0
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: Casebook São Paulo Detective Agency (a test target, not a real agency)\n- main:\n  - paragraph: Pulling the case file…",
+ "screenshot": "cases/20261031T122113Z-hxc1p4-2.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 0,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 0,
+  "requests_pending": 2,
+  "console_errors": 0,
+  "slowest_api_s": 0.1,
+  "error_banner": 0,
+  "heal_score": 0,
+  "near_match_differs_by_number": 0,
+  "element_disabled": 0,
+  "failed_on_assertion": 1
+ },
+ "suspects": {
+  "flaky": 0.991,
+  "environment": 0.001,
+  "real_bug": 0.002,
+  "outdated_test": 0.006
+ },
+ "verdict": {
+  "cause": "flaky",
+  "confidence": 0.991,
+  "by": "model"
+ },
+ "rulesVerdict": "flaky",
+ "healLeads": [],
+ "truth": {
+  "scenario": "latency",
+  "cause": "flaky"
+ }
+}
