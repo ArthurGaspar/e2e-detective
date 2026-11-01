@@ -1,0 +1,172 @@
+{
+ "_id": "20261101T055806Z-gu3zhe-1",
+ "runId": "20261101T055806Z-gu3zhe",
+ "openedAt": "2026-11-01T05:58:23.500Z",
+ "test": {
+  "key": "add-evidence.spec.ts > add evidence",
+  "title": "add evidence",
+  "file": "generated/add-evidence.spec.ts"
+ },
+ "outcome": "unexpected",
+ "attempts": [
+  {
+   "retry": 0,
+   "status": "failed",
+   "durationMs": 6049,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Evidence (2)', { exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByText('Evidence (2)', { exact: true }) with timeout 5000ms\n  - waiting for getByText('Evidence (2)', { exact: true })\n",
+   "locator": "getByText('Evidence (2)', { exact: true })",
+   "api": [
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/detectives.json",
+     "status": 200,
+     "ms": 11.49
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 23.048000000000002
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 3.54
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 4.322
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/ack.json?op=evidence&case=102",
+     "status": 200,
+     "ms": 48.897
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 3.29
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 3.511
+    }
+   ],
+   "consoleErrors": []
+  },
+  {
+   "retry": 1,
+   "status": "failed",
+   "durationMs": 5824,
+   "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByText('Evidence (2)', { exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByText('Evidence (2)', { exact: true }) with timeout 5000ms\n  - waiting for getByText('Evidence (2)', { exact: true })\n",
+   "locator": "getByText('Evidence (2)', { exact: true })",
+   "api": [
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/detectives.json",
+     "status": 200,
+     "ms": 8.873000000000001
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 14.106
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 6.2509999999999994
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 6.476999999999999
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/ack.json?op=evidence&case=102",
+     "status": 200,
+     "ms": 6.54
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 4.64
+    },
+    {
+     "url": "https://arthurgaspar.github.io/e2e-detective/crime-scene/api/cases.json",
+     "status": 200,
+     "ms": 4.254
+    }
+   ],
+   "consoleErrors": []
+  }
+ ],
+ "snapshot": "- banner: \"Casebook São Paulo Detective Agency (a test target, not a real agency) release: bug-evidence\"\n- main:\n  - article:\n    - link \"← Case board\":\n      - /url: \"#/board\"\n    - heading \"The Vanishing Bilhete Único\" [level=1]\n    - paragraph: Sé · open\n    - paragraph: A transit card disappeared between two turnstiles at Sé station.\n    - heading \"Suspects\" [level=2]\n    - list:\n      - listitem:\n        - strong: Station guard Rui\n        - paragraph: On shift, but on a coffee break.\n        - button \"Accuse Station guard Rui\"\n      - listitem:\n        - strong: Street vendor Lia\n        - paragraph: Sells card holders right next to the gate.\n        - button \"Accuse Street vendor Lia\"\n      - listitem:\n        - strong: Commuter Beto\n        - paragraph: Late for work and in a hurry.\n        - button \"Accuse Commuter Beto\"\n    - heading \"Evidence (1)\" [level=2]\n    - list:\n      - listitem: ▸ Camera 4 was pointed at the ceiling.\n      - listitem: ▸ Ticket stub found behind the vending machine.\n    - text: New evidence\n    - textbox \"New evidence\"\n    - button \"Add evidence\"\n    - button \"Close case\" [disabled]",
+ "screenshot": "cases/20261101T055806Z-gu3zhe-1.jpg",
+ "features": {
+  "passed_on_retry": 0,
+  "failed_attempts": 2,
+  "same_error_every_attempt": 1,
+  "element_missing": 1,
+  "value_mismatch": 0,
+  "test_timeout": 0,
+  "api_5xx": 0,
+  "api_4xx": 0,
+  "requests_failed": 0,
+  "requests_pending": 0,
+  "console_errors": 0,
+  "slowest_api_s": 0,
+  "error_banner": 0,
+  "heal_score": 0.44,
+  "near_match_differs_by_number": 1,
+  "element_disabled": 0,
+  "failed_on_assertion": 1
+ },
+ "suspects": {
+  "flaky": 0.004,
+  "environment": 0.002,
+  "real_bug": 0.964,
+  "outdated_test": 0.029
+ },
+ "verdict": {
+  "cause": "real_bug",
+  "confidence": 0.964,
+  "by": "model"
+ },
+ "rulesVerdict": "outdated_test",
+ "healLeads": [
+  {
+   "locator": "getByRole('heading', { name: 'Evidence (1)' })",
+   "score": 0.44,
+   "candidate": {
+    "role": "heading",
+    "name": "Evidence (1)",
+    "testId": null,
+    "tag": "h2"
+   }
+  },
+  {
+   "locator": "getByRole('textbox', { name: 'New evidence' })",
+   "score": 0.4,
+   "candidate": {
+    "role": "textbox",
+    "name": "New evidence",
+    "testId": null,
+    "tag": "textarea"
+   }
+  },
+  {
+   "locator": "getByRole('button', { name: 'Add evidence' })",
+   "score": 0.4,
+   "candidate": {
+    "role": "button",
+    "name": "Add evidence",
+    "testId": "add-evidence",
+    "tag": "button"
+   }
+  }
+ ],
+ "truth": {
+  "scenario": "bug-evidence",
+  "cause": "real_bug"
+ }
+}
