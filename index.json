@@ -1,6 +1,28 @@
 {
- "updatedAt": "2026-11-05T06:41:15.919Z",
+ "updatedAt": "2026-11-05T17:24:24.443Z",
  "cases": [
+  {
+   "_id": "20261105T172401Z-9w2nxq-2",
+   "runId": "20261105T172401Z-9w2nxq",
+   "openedAt": "2026-11-05T17:24:24.431Z",
+   "test": "detective signs in and sees the case board",
+   "verdict": "environment",
+   "confidence": 0.983,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261105T172401Z-9w2nxq-1",
+   "runId": "20261105T172401Z-9w2nxq",
+   "openedAt": "2026-11-05T17:24:24.431Z",
+   "test": "close a solved case",
+   "verdict": "flaky",
+   "confidence": 0.95,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
   {
    "_id": "20261105T064059Z-em0ayd-1",
    "runId": "20261105T064059Z-em0ayd",
@@ -2929,6 +2951,14 @@
   }
  ],
  "runs": [
+  {
+   "_id": "20261105T172401Z-9w2nxq",
+   "startedAt": "2026-11-05T17:24:01.054Z",
+   "trigger": "schedule",
+   "passed": 3,
+   "failed": 2,
+   "flaky": 0
+  },
   {
    "_id": "20261105T064059Z-em0ayd",
    "startedAt": "2026-11-05T06:40:59.762Z",
