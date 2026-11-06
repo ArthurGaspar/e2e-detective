@@ -10,6 +10,7 @@ function useHash(): string {
   const [hash, setHash] = useState(location.hash || "#/");
   useEffect(() => {
     const on = () => {
+      if (location.hash && !location.hash.startsWith("#/")) return;
       setHash(location.hash || "#/");
       window.scrollTo(0, 0);
     };
@@ -22,7 +23,8 @@ function useHash(): string {
 function useTheme(): [Theme, () => void] {
   const [theme, setTheme] = useState<Theme>(() => {
     try {
-      return (localStorage.getItem("case-files-theme") as Theme) || "system";
+      const stored = localStorage.getItem("case-files-theme");
+      return stored === "light" || stored === "dark" ? stored : "system";
     } catch {
       return "system";
     }
@@ -47,27 +49,35 @@ export function App() {
 
   return (
     <>
+      <a className="skip-link" href="#content">Skip to content</a>
       <header className="top">
         <a className="brand" href="#/">
-          <b>Case Files</b>
-          <span>an AI detective for failing end-to-end tests</span>
+          <span className="brand-mark" aria-hidden="true">CF<small>01</small></span>
+          <span className="brand-name">
+            <b>Case Files</b>
+            <span>A test failure investigation lab</span>
+          </span>
         </a>
         <nav className="tabs">
           <a href="#/" aria-current={page === "board" || page === "case" ? "page" : undefined}>Cases</a>
-          <a href="#/model" aria-current={page === "model" ? "page" : undefined}>The detective</a>
-          <a href="#/patrols" aria-current={page === "patrols" ? "page" : undefined}>Patrols</a>
-          <a href="crime-scene/">Crime scene ↗</a>
+          <a href="#/model" aria-current={page === "model" ? "page" : undefined}>Method & results</a>
+          <a href="#/patrols" aria-current={page === "patrols" ? "page" : undefined}>Run log</a>
         </nav>
         <button className="icon-btn" onClick={cycleTheme} aria-label={`Theme: ${theme}`} title="Theme: system, light, dark">
           {theme === "system" ? "Auto" : theme === "light" ? "Light" : "Dark"}
         </button>
       </header>
-      <main>
+      <main id="content" tabIndex={-1}>
         {page === "case" && <CaseFile id={caseId!} />}
         {page === "board" && <Board />}
         {page === "model" && <ModelPage />}
         {page === "patrols" && <Patrols />}
       </main>
+      <footer className="site-footer">
+        <span>Built by <a href="https://github.com/ArthurGaspar">Arthur Gaspar</a> · São Paulo, Brazil</span>
+        <span>TypeScript / Playwright / local inference</span>
+        <a href="https://github.com/ArthurGaspar/e2e-detective">Read the source ↗</a>
+      </footer>
     </>
   );
 }

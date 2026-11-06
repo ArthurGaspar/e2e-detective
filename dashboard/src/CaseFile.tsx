@@ -1,5 +1,5 @@
 import { Empty } from "./Board";
-import { CAUSE_BLURB, CAUSE_LABEL, FEATURE_LABEL, assetUrl, loadCase, type CaseDoc } from "./data";
+import { CAUSE_BLURB, CAUSE_LABEL, FEATURE_LABEL, loadCase, type CaseDoc } from "./data";
 import { CauseChip, SuspectBars, caseNo, causeColor, pct, useAsync, when } from "./ui";
 
 export function CaseFile({ id }: { id: string }) {
@@ -19,6 +19,7 @@ export function CaseFile({ id }: { id: string }) {
           Case {caseNo(c._id)} · opened {when(c.openedAt)} · run {c.runId}
         </p>
         <h1>{c.test.title}</h1>
+        <p className="small">Recorded evidence from a synthetic fault. The diagnosis below is checked against the known injected cause.</p>
         <p className="small">
           <code>tests/{c.test.file}</code> · {c.outcome === "flaky" ? "failed, then passed on retry" : `failed ${c.attempts.length} of ${c.attempts.length} attempts`}
         </p>
@@ -36,7 +37,7 @@ export function CaseFile({ id }: { id: string }) {
           {c.screenshot && (
             <section className="card">
               <h2>The scene</h2>
-              <img className="shot" src={assetUrl(c.screenshot)} alt={`The page when "${c.test.title}" failed`} loading="lazy" />
+              <img className="shot" src={c.screenshot} alt={`The page when "${c.test.title}" failed`} loading="lazy" />
               <p className="small" style={{ marginTop: 8 }}>Last frame of the failing attempt, from the Playwright trace.</p>
             </section>
           )}
@@ -56,18 +57,22 @@ export function CaseFile({ id }: { id: string }) {
               </tbody>
             </table>
           </section>
+          <details className="card">
+            <summary>Page accessibility snapshot</summary>
+            <pre className="snapshot">{c.snapshot || "No snapshot was captured for this attempt."}</pre>
+          </details>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <section className="card">
-            <h2>Verdict</h2>
+            <h2>{c.report ? "LLM diagnosis" : c.verdict.by === "model" ? "Classifier diagnosis" : "Rules diagnosis"}</h2>
             <div className="verdict" style={{ borderColor: causeColor(verdict) }}>
               <span className="big" style={{ color: causeColor(verdict) }}>{CAUSE_LABEL[verdict]}</span>
               <span className="small">{CAUSE_BLURB[verdict]}</span>
               <span className="small">
                 {c.report
                   ? `Named by the LLM (${c.report.model}), ${pct(c.report.confidence)} self-reported confidence.`
-                  : `Named by the ${c.verdict.by === "model" ? "classifier" : "rules"}, ${pct(c.verdict.confidence)} confident.`}
+                  : c.verdict.by === "model" ? `Classifier score: ${pct(c.verdict.confidence)}. This is not a calibrated probability of correctness.` : "Selected by deterministic rules. No probability estimate."}
               </span>
             </div>
             {solved !== null && (
@@ -82,7 +87,7 @@ export function CaseFile({ id }: { id: string }) {
           </section>
 
           <section className="card">
-            <h2>Suspects</h2>
+            <h2>{c.verdict.by === "model" ? "Classifier scores" : "Rules output"}</h2>
             <SuspectBars probs={c.suspects} />
             <p className="small" style={{ marginTop: 10 }}>
               {c.verdict.by === "model" ? (
@@ -170,9 +175,9 @@ function Interrogation({ c }: { c: CaseDoc }) {
   if (!c.report) {
     return (
       <section className="card">
-        <h2>Interrogation</h2>
+        <h2>Independent LLM report</h2>
         <div className="callout">
-          <p>Not interrogated yet.</p>
+          <p>No LLM report for this case.</p>
           <p className="small" style={{ margin: 0 }}>
             LLM reports are written locally with Ollama (<code>npm run investigate</code>), so the scheduled patrol stays free and fast.
           </p>
@@ -183,7 +188,7 @@ function Interrogation({ c }: { c: CaseDoc }) {
   const r = c.report;
   return (
     <section className="card">
-      <h2>Interrogation</h2>
+      <h2>Independent LLM report</h2>
       <p>{r.summary}</p>
       {r.clues.length > 0 && (
         <ul style={{ margin: "0 0 10px", paddingLeft: 18, color: "var(--ink-2)" }}>

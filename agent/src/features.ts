@@ -1,11 +1,4 @@
-/**
- * Turns the evidence for one failed test into the numeric features the
- * classifier uses. Every feature is something a human investigator would also
- * look at; none of them reads the injected scenario.
- *
- * Features are always computed from evidence (never stored on their own), so a
- * change here applies to every past case at the next training run.
- */
+// Extract observable clues from evidence; injected labels never enter the feature vector.
 import { locatorFromError, type NetworkCall, type TestEvidence } from "./evidence";
 import { healLeads, parseLocator, type HealLead } from "./heal";
 

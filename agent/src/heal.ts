@@ -1,13 +1,10 @@
-/**
- * Self-healing leads: when a locator finds nothing, rank the elements that
- * are on the page by how likely they are its renamed successor.
- *
- * This is a cheap, deterministic pass that runs in CI. It catches renames that
- * keep some words ("Add evidence" -> "Log evidence") and misses pure synonyms
- * ("Case board" -> "Investigations"). The local LLM reviews the same page but,
- * in our evaluation, also missed those synonym renames.
- */
-import type { Candidate } from "../../tests/fixtures";
+// Rank replacement locators by text similarity and role. Synonyms without text overlap remain a limitation.
+export interface Candidate {
+  role: string;
+  name: string;
+  testId: string | null;
+  tag: string;
+}
 
 export interface ParsedLocator {
   kind: "role" | "testid" | "text" | "label" | "other";

@@ -6,9 +6,11 @@
   "scripts": {
     "scene": "tsx agent/src/serve.ts",
     "test:e2e": "playwright test",
+    "test:dashboard": "playwright test -c dashboard/playwright.config.ts",
     "patrol": "tsx agent/src/cli.ts patrol",
     "sweep": "tsx agent/src/cli.ts sweep",
     "train": "tsx agent/src/cli.ts train",
+    "evaluate": "tsx agent/src/cli.ts evaluate",
     "investigate": "tsx agent/src/cli.ts investigate",
     "generate": "tsx agent/src/cli.ts generate",
     "heal": "tsx agent/src/cli.ts heal",

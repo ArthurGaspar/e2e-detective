@@ -9,7 +9,6 @@ playwright-report/
 # Local patrol data and scratch space
 .patrol/
 .runs-data/
-.sweep-data/
 .scratch/
 
 # Personal

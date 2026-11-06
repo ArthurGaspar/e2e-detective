@@ -1,15 +1,4 @@
-/**
- * Run and case documents, stored as MongoDB-style JSON documents in a
- * directory (in CI, a checkout of the `runs-data` branch):
- *
- *   runs/<runId>.json      one document per patrol run
- *   cases/<caseId>.json    one document per failed test
- *   cases/<caseId>.jpg     last screencast frame of the failure
- *   index.json             summaries the dashboard loads first
- *
- * Documents keep MongoDB conventions (`_id`, nested fields), so a database
- * implementation of `Store` could replace the files without changing callers.
- */
+// JSON storage: runs/<id>.json, cases/<id>.json, optional screenshots, and index.json summaries.
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import type { Cause } from "./scenarios";
@@ -114,7 +103,7 @@ const summarize = (c: CaseDoc): CaseSummary => ({
   openedAt: c.openedAt,
   test: c.test.title,
   verdict: c.report?.verdict ?? c.verdict.cause,
-  confidence: c.verdict.confidence,
+  confidence: c.report?.confidence ?? c.verdict.confidence,
   truth: c.truth.cause,
   reported: Boolean(c.report),
   healable: c.healLeads.length > 0,

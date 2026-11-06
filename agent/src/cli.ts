@@ -4,6 +4,7 @@
  *   patrol       run all tests once with hidden faults and open cases for failures
  *   sweep        run many patrols to build a labeled training set
  *   train        retrain the classifier and report cross-validated accuracy
+ *   evaluate     reproduce validation metrics without rewriting the model
  *   investigate  write LLM reports for cases that don't have one (needs Ollama)
  *   generate     record a Playwright test from a plain-language journey (needs Ollama)
  *   heal         rewrite a broken locator in a spec using a case's best lead
@@ -124,6 +125,14 @@ async function main() {
       writeFileSync(MODEL_PATH, JSON.stringify(model, null, 1));
       const pct = (x: number) => `${(x * 100).toFixed(1)}%`;
       console.log(`Trained on ${samples.length} samples. Cross-validated accuracy ${pct(metrics.accuracy)} (rules ${pct(metrics.rulesAccuracy)}, majority ${pct(metrics.majorityAccuracy)}).`);
+      break;
+    }
+    case "evaluate": {
+      const samples = samplesFrom(existsSync(resolve(ROOT, values.data!)) ? await store().listCases() : []);
+      if (samples.length < 20) throw new Error(`Only ${samples.length} labeled samples; at least 20 are required.`);
+      const metrics = evaluate(samples, 5, values.seed ? Number(values.seed) : 1);
+      console.log(JSON.stringify(metrics, null, 2));
+      console.error("Exploratory case-level cross-validation on synthetic faults; repeated journeys and feature tuning limit generalization.");
       break;
     }
     case "investigate": {

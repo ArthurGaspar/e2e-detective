@@ -44,10 +44,14 @@ jobs:
           npm ci
           npm run build
 
-      - name: Add the crime scene and the bundled model
+      - name: Add the crime scene
         run: |
           cp -r crime-scene dashboard/dist/crime-scene
-          if [ -f model/model.json ]; then cp model/model.json dashboard/dist/model.json; fi
+
+      - name: Dashboard browser checks
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:dashboard
 
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'

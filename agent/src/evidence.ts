@@ -11,7 +11,7 @@
  */
 import { readFileSync } from "node:fs";
 import { strFromU8, unzipSync } from "fflate";
-import type { Candidate } from "../../tests/fixtures";
+import type { Candidate } from "./heal";
 
 export interface NetworkCall {
   url: string;

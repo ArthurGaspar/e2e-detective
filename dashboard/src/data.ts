@@ -4,26 +4,33 @@ import type { CaseDoc, Index } from "../../agent/src/store";
 
 export type { CaseDoc, Cause, Index, Model };
 
-/**
- * Case documents live on the `runs-data` branch. In production the build sets
- * VITE_DATA_URL to that branch on raw.githubusercontent.com, so new patrols
- * show up without redeploying the site. In development, vite.config.ts serves
- * a local data directory at /data/.
- */
 const DATA_URL: string = import.meta.env.VITE_DATA_URL ?? `${import.meta.env.BASE_URL}data/`;
-// The patrol publishes a retrained model next to the cases; the bundled one is a fallback.
+const SAMPLE_URL = `${import.meta.env.BASE_URL}sample/`;
 const BUNDLED_MODEL_URL = `${import.meta.env.BASE_URL}model.json`;
 
 async function getJson<T>(url: string): Promise<T> {
-  const res = await fetch(url, { cache: "no-cache" });
+  const res = await fetch(url, { cache: "no-cache", signal: AbortSignal.timeout(8000) });
   if (!res.ok) throw new Error(`${url} answered ${res.status}`);
   return res.json() as Promise<T>;
 }
 
-export const loadIndex = () => getJson<Index>(`${DATA_URL}index.json`);
-export const loadCase = (id: string) => getJson<CaseDoc>(`${DATA_URL}cases/${id}.json`);
+type Archive = Index & { source: "live" | "sample"; dataUrl: string };
+let archive: Promise<Archive> | undefined;
+
+export function loadIndex(): Promise<Archive> {
+  archive ??= getJson<Index>(`${DATA_URL}index.json`)
+    .then((index): Archive => ({ ...index, source: "live", dataUrl: DATA_URL }))
+    .catch(async (): Promise<Archive> => ({ ...await getJson<Index>(`${SAMPLE_URL}index.json`), source: "sample", dataUrl: SAMPLE_URL }))
+    .catch((error) => { archive = undefined; throw error; });
+  return archive;
+}
+
+export async function loadCase(id: string): Promise<CaseDoc> {
+  const { dataUrl } = await loadIndex();
+  const doc = await getJson<CaseDoc>(`${dataUrl}cases/${encodeURIComponent(id)}.json`);
+  return { ...doc, screenshot: doc.screenshot ? `${dataUrl}${doc.screenshot}` : null };
+}
 export const loadModel = () => getJson<Model>(`${DATA_URL}model.json`).catch(() => getJson<Model>(BUNDLED_MODEL_URL));
-export const assetUrl = (path: string) => `${DATA_URL}${path}`;
 
 export const CAUSE_LABEL: Record<Cause, string> = {
   flaky: "Flaky",

@@ -1,11 +1,4 @@
-/**
- * Failure classifier: multinomial logistic regression on standardized features,
- * trained with full-batch gradient descent and L2 regularization.
- *
- * Small and dependency-free, and its weights read directly as "how much does
- * this clue point at this cause", which the dashboard shows. It is always
- * compared with `rulesVerdict`, the checklist a QA engineer would apply by hand.
- */
+// Multinomial logistic regression with standardized inputs, batch gradient descent, and L2 regularization.
 import { CAUSES, type Cause } from "./scenarios";
 import { FEATURES, type FeatureVector, toArray } from "./features";
 

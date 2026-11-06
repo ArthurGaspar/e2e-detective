@@ -24,11 +24,10 @@ export function Tile({ value, label, sub }: { value: ReactNode; label: string; s
   );
 }
 
-/** One horizontal bar per cause; labels carry identity, so color is never the only cue. */
 export function SuspectBars({ probs }: { probs: Record<Cause, number> }) {
   const order = [...CAUSES].sort((a, b) => probs[b] - probs[a]);
   return (
-    <div className="bars" role="list" aria-label="Suspects and their probability">
+    <div className="bars" role="list" aria-label="Causes and their scores">
       {order.map((c) => (
         <div className="bar-row" role="listitem" key={c} title={`${CAUSE_LABEL[c]}: ${(probs[c] * 100).toFixed(1)}%`}>
           <span>{CAUSE_LABEL[c]}</span>
@@ -66,8 +65,7 @@ export function when(iso: string): string {
   return d.toLocaleString("en-GB", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
 }
 
-/** "20261026T195545Z-7-1" -> "#26-1955-1": short, readable case numbers. */
 export function caseNo(id: string): string {
-  const m = id.match(/^\d{4}(\d{2})(\d{2})T(\d{2})(\d{2})\d{2}Z-[a-z0-9]+-(\d+)$/);
-  return m ? `#${m[1]}${m[2]}-${m[3]}${m[4]}-${m[5]}` : `#${id}`;
+  const m = id.match(/^\d{4}(\d{2})(\d{2})T(\d{6})Z-([a-z0-9]+)-(\d+)$/);
+  return m ? `#${m[1]}${m[2]}-${m[3]}-${m[4]}-${m[5]}` : `#${id}`;
 }

@@ -17,12 +17,24 @@ export function ModelPage() {
   return (
     <>
       <section>
-        <h1>How the detective decides</h1>
+        <p className="eyebrow">Engineering notebook / Method & results</p>
+        <h1>What the evidence supports.</h1>
         <p>
           A multinomial logistic regression over {model.features.length} clues extracted from each failure's Playwright trace and page. It
           was trained on {model.trainedOn} failures whose cause was injected on purpose, and is scored with {m?.folds ?? 5}-fold
           cross-validation against two baselines: always guessing the most common cause, and the checklist a QA engineer would apply by hand.
         </p>
+      </section>
+
+      <section className="callout">
+        <h2>Read these scores in context</h2>
+        <p>These are random, case-level folds over a small synthetic app. The same journeys and fault types can appear in both training and validation. Features were refined after inspecting errors, so this is an exploratory result, not an estimate of production accuracy.</p>
+        <p className="small">The next useful evaluation is a frozen model tested on new applications or unseen fault families. Archive match rates also mix historical model versions and optional LLM diagnoses; they are a different measurement.</p>
+      </section>
+
+      <section className="method-notes grid-2">
+        <div className="card"><h2>Why a small classifier?</h2><p>Retries, failed requests, and missing elements already carry useful information. Logistic regression gives a cheap baseline with inspectable weights. A larger model has to earn its place against it.</p></div>
+        <div className="card"><h2>Where the LLM fits</h2><p>Ollama writes an independent report and may propose a locator. It sees the evidence without the classifier’s answer. Reports and replacements still need review; fluent explanations can be wrong.</p></div>
       </section>
 
       {m && (
@@ -80,8 +92,8 @@ export function ModelPage() {
           Weights on standardized features: positive values push towards the cause, negative values away from it. Larger magnitude,
           stronger clue.
         </p>
-        <div style={{ overflowX: "auto" }}>
-          <table>
+        <div className="table-scroll" tabIndex={0} aria-label="Feature weights, scroll horizontally for all causes">
+          <table className="weights-table">
             <thead>
               <tr>
                 <th>Clue</th>
@@ -116,7 +128,7 @@ export function ModelPage() {
 function Matrix({ confusion }: { confusion: number[][] }) {
   const max = Math.max(...confusion.flat());
   return (
-    <div style={{ overflowX: "auto" }}>
+    <div className="table-scroll" tabIndex={0} aria-label="Confusion matrix, scroll horizontally for all causes">
       <table className="matrix">
         <thead>
           <tr>

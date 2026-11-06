@@ -9,10 +9,12 @@ export function Patrols() {
   return (
     <>
       <section>
-        <h1>Patrol log</h1>
+        <p className="eyebrow">Engineering notebook / Recorded runs</p>
+        <h1>Run log</h1>
         <p>Each patrol runs every journey once against the crime scene, like synthetic monitoring, except that faults are planted so the verdicts can be checked.</p>
       </section>
-      <section className="card">
+      {index.source === "sample" && <p className="archive-notice">Reference archive: full run totals for the runs represented in the bundled case selection. This is not live monitoring.</p>}
+      <section className="card table-scroll">
         <table>
           <thead>
             <tr>

@@ -1,14 +1,4 @@
-/**
- * Journey -> Playwright test, by exploring the live app.
- *
- * Small local models are poor at writing a whole test in one go: they invent
- * page details and repeat mistakes during repair. Here the model drives a real
- * browser one step at a time instead. At each step it sees the current page's
- * ARIA snapshot and returns one action as JSON. The agent checks that the
- * locator matches exactly one element and that assertions hold *now*, rejects
- * anything else with a short reason, and records accepted steps as code. The
- * finished spec is then run once against the clean app to confirm it.
- */
+// Plan a journey, validate each action against the live page, then record and verify a Playwright spec.
 import { spawn, spawnSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";

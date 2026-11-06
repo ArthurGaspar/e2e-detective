@@ -1,0 +1,143 @@
+{
+  "updatedAt": "2026-10-26T20:18:01.812Z",
+  "cases": [
+    {
+      "_id": "20261026T201742Z-cunbmj-2",
+      "runId": "20261026T201742Z-cunbmj",
+      "openedAt": "2026-10-26T20:18:01.812Z",
+      "test": "close a solved case",
+      "verdict": "environment",
+      "confidence": 1,
+      "truth": "environment",
+      "reported": false,
+      "healable": false
+    },
+    {
+      "_id": "20261026T201724Z-dtw4og-2",
+      "runId": "20261026T201724Z-dtw4og",
+      "openedAt": "2026-10-26T20:17:42.714Z",
+      "test": "close a solved case",
+      "verdict": "real_bug",
+      "confidence": 1,
+      "truth": "outdated_test",
+      "reported": false,
+      "healable": false
+    },
+    {
+      "_id": "20261026T201649Z-cvyyhl-2",
+      "runId": "20261026T201649Z-cvyyhl",
+      "openedAt": "2026-10-26T20:17:10.049Z",
+      "test": "open a case file",
+      "verdict": "environment",
+      "confidence": 1,
+      "truth": "flaky",
+      "reported": false,
+      "healable": false
+    },
+    {
+      "_id": "20261026T201649Z-cvyyhl-1",
+      "runId": "20261026T201649Z-cvyyhl",
+      "openedAt": "2026-10-26T20:17:10.049Z",
+      "test": "close a solved case",
+      "verdict": "outdated_test",
+      "confidence": 1,
+      "truth": "real_bug",
+      "reported": false,
+      "healable": true
+    },
+    {
+      "_id": "20261026T201630Z-bdapr5-1",
+      "runId": "20261026T201630Z-bdapr5",
+      "openedAt": "2026-10-26T20:16:49.019Z",
+      "test": "open a case file",
+      "verdict": "environment",
+      "confidence": 1,
+      "truth": "flaky",
+      "reported": false,
+      "healable": false
+    },
+    {
+      "_id": "20261026T201612Z-2vhi9r-2",
+      "runId": "20261026T201612Z-2vhi9r",
+      "openedAt": "2026-10-26T20:16:30.925Z",
+      "test": "close a solved case",
+      "verdict": "outdated_test",
+      "confidence": 1,
+      "truth": "real_bug",
+      "reported": false,
+      "healable": true
+    },
+    {
+      "_id": "20261026T201612Z-2vhi9r-1",
+      "runId": "20261026T201612Z-2vhi9r",
+      "openedAt": "2026-10-26T20:16:30.925Z",
+      "test": "add evidence",
+      "verdict": "environment",
+      "confidence": 1,
+      "truth": "environment",
+      "reported": false,
+      "healable": false
+    },
+    {
+      "_id": "20261026T201535Z-26ah13-3",
+      "runId": "20261026T201535Z-26ah13",
+      "openedAt": "2026-10-26T20:15:54.007Z",
+      "test": "close a solved case",
+      "verdict": "real_bug",
+      "confidence": 1,
+      "truth": "outdated_test",
+      "reported": false,
+      "healable": false
+    }
+  ],
+  "runs": [
+    {
+      "_id": "20261026T201742Z-cunbmj",
+      "startedAt": "2026-10-26T20:17:42.720Z",
+      "trigger": "sweep",
+      "passed": 1,
+      "failed": 4,
+      "flaky": 0
+    },
+    {
+      "_id": "20261026T201724Z-dtw4og",
+      "startedAt": "2026-10-26T20:17:24.693Z",
+      "trigger": "sweep",
+      "passed": 3,
+      "failed": 2,
+      "flaky": 0
+    },
+    {
+      "_id": "20261026T201649Z-cvyyhl",
+      "startedAt": "2026-10-26T20:16:49.022Z",
+      "trigger": "sweep",
+      "passed": 3,
+      "failed": 2,
+      "flaky": 0
+    },
+    {
+      "_id": "20261026T201630Z-bdapr5",
+      "startedAt": "2026-10-26T20:16:30.931Z",
+      "trigger": "sweep",
+      "passed": 4,
+      "failed": 1,
+      "flaky": 0
+    },
+    {
+      "_id": "20261026T201612Z-2vhi9r",
+      "startedAt": "2026-10-26T20:16:12.584Z",
+      "trigger": "sweep",
+      "passed": 3,
+      "failed": 2,
+      "flaky": 0
+    },
+    {
+      "_id": "20261026T201535Z-26ah13",
+      "startedAt": "2026-10-26T20:15:35.641Z",
+      "trigger": "sweep",
+      "passed": 2,
+      "failed": 3,
+      "flaky": 0
+    }
+  ]
+}

@@ -1,24 +1,36 @@
-import { createReadStream, existsSync } from "node:fs";
-import { join, normalize, resolve } from "node:path";
+import { createReadStream, existsSync, readFileSync, statSync } from "node:fs";
+import { extname, isAbsolute, relative, resolve, sep } from "node:path";
 import react from "@vitejs/plugin-react";
 import { defineConfig, type Plugin } from "vite";
 
-// In development, serve case documents from a local data directory (a checkout of
-// the runs-data branch, or the output of a local patrol) and the trained model.
 const dataDir = resolve(import.meta.dirname, process.env.CASE_DATA_DIR ?? "../.runs-data");
 const modelPath = resolve(import.meta.dirname, "../model/model.json");
+const sceneDir = resolve(import.meta.dirname, "../crime-scene");
+const types: Record<string, string> = { ".json": "application/json", ".jpg": "image/jpeg", ".html": "text/html", ".js": "text/javascript", ".css": "text/css" };
 
 function localData(): Plugin {
   return {
     name: "local-case-data",
+    generateBundle() {
+      this.emitFile({ type: "asset", fileName: "model.json", source: readFileSync(modelPath, "utf8") });
+    },
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        const url = decodeURIComponent((req.url ?? "").split("?")[0]);
+        let url: string;
+        try { url = decodeURIComponent((req.url ?? "").split("?")[0]); }
+        catch { res.writeHead(400).end("Invalid URL"); return; }
         let file: string | null = null;
         if (url === "/model.json") file = modelPath;
-        else if (url.startsWith("/data/")) file = normalize(join(dataDir, url.slice("/data/".length)));
-        if (!file || !file.startsWith(file === modelPath ? modelPath : dataDir) || !existsSync(file)) return next();
-        res.setHeader("Content-Type", file.endsWith(".json") ? "application/json" : "image/jpeg");
+        else {
+          const root = url.startsWith("/data/") ? dataDir : url.startsWith("/crime-scene/") ? sceneDir : null;
+          if (!root) return next();
+          const prefix = root === dataDir ? "/data/" : "/crime-scene/";
+          file = resolve(root, url.slice(prefix.length) || "index.html");
+          const rel = relative(root, file);
+          if (rel === ".." || rel.startsWith(`..${sep}`) || isAbsolute(rel)) { res.writeHead(403).end(); return; }
+        }
+        if (!file || !existsSync(file) || !statSync(file).isFile()) return next();
+        res.setHeader("Content-Type", types[extname(file)] ?? "application/octet-stream");
         createReadStream(file).pipe(res);
       });
     },

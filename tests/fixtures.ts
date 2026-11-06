@@ -9,15 +9,9 @@
  */
 import { test as base, expect } from "@playwright/test";
 import { SLOW_REQUEST_CHANCE, SLOW_REQUEST_MS, scenarioById, testKey } from "../agent/src/scenarios";
+import type { Candidate } from "../agent/src/heal";
 
 const plan: Record<string, string> = JSON.parse(process.env.CHAOS_PLAN ?? "{}");
-
-export interface Candidate {
-  role: string;
-  name: string;
-  testId: string | null;
-  tag: string;
-}
 
 export const test = base.extend<{ forensics: void }>({
   forensics: [
