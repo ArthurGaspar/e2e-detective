@@ -13,7 +13,7 @@ export function CaseFile({ id }: { id: string }) {
 
   return (
     <>
-      <a className="back" href="#/">← Case board</a>
+      <a className="back" href="#/">← Case desk</a>
       <section>
         <p className="small">
           Case {caseNo(c._id)} · opened {when(c.openedAt)} · run {c.runId}
@@ -179,7 +179,7 @@ function Interrogation({ c }: { c: CaseDoc }) {
         <div className="callout">
           <p>No LLM report for this case.</p>
           <p className="small" style={{ margin: 0 }}>
-            LLM reports are written locally with Ollama (<code>npm run investigate</code>), so the scheduled patrol stays free and fast.
+            Generate locally with Ollama: <code>npm run investigate</code>.
           </p>
         </div>
       </section>

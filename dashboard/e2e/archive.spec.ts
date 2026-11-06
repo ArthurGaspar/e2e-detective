@@ -8,14 +8,16 @@ test("the reference archive works without a live data branch", async ({ page }) 
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
-  await expect(page.getByText("Reference archive · 26 Oct 2026")).toBeVisible();
+  await expect(page.getByText("Reference copy", { exact: true })).toBeVisible();
   await expect(page.locator(".cases > li")).toHaveCount(8);
   await page.getByLabel("Find a case").fill("not-a-real-journey");
   await expect(page.getByText("No cases match these filters.", { exact: false })).toBeVisible();
   await page.getByLabel("Find a case").fill("");
-  await page.getByRole("button", { name: "Wrong diagnoses", exact: true }).click();
+  await page.getByRole("button", { name: "Wrong diagnoses" }).click();
   await expect(page.locator(".cases > li")).toHaveCount(6);
   await page.locator(".case-card").first().click();
+  await expect(page.locator(".case-card").first()).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("link", { name: "Open full case file" }).click();
   await expect(page.getByRole("heading", { name: "Evidence", exact: true })).toBeVisible();
   await page.getByText("Page accessibility snapshot", { exact: true }).click();
   await expect(page.locator(".snapshot")).toBeVisible();
@@ -28,8 +30,8 @@ test("the reference archive works without a live data branch", async ({ page }) 
 
 test("method, run log, theme, and the local target remain usable", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("link", { name: "Method & results", exact: true }).click();
-  await expect(page.getByRole("heading", { name: "What the evidence supports." })).toBeVisible();
+  await page.getByRole("link", { name: "Lab notes", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Lab notes", exact: true })).toBeVisible();
   await expect(page.getByText("98.4%", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Theme: system", exact: true }).click();
   await page.getByRole("button", { name: "Theme: light", exact: true }).click();
@@ -39,9 +41,8 @@ test("method, run log, theme, and the local target remain usable", async ({ page
   await expect(page.getByRole("heading", { name: "Run log", exact: true })).toBeVisible();
   await expect(page.getByRole("table")).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  await page.getByRole("link", { name: "Cases", exact: true }).click();
-  await page.getByRole("link", { name: "Inspect the evidence" }).click();
-  await expect(page.getByRole("heading", { name: "Case archive", exact: true })).toBeInViewport();
-  await page.getByRole("link", { name: "Explore the test target" }).click();
+  await page.getByRole("link", { name: "Case desk", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Case register", exact: true })).toBeVisible();
+  await page.getByRole("link", { name: "Enter test target" }).click();
   await expect(page.getByRole("heading", { name: "Detective sign-in" })).toBeVisible();
 });

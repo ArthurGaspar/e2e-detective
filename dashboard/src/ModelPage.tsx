@@ -17,8 +17,8 @@ export function ModelPage() {
   return (
     <>
       <section>
-        <p className="eyebrow">Engineering notebook / Method & results</p>
-        <h1>What the evidence supports.</h1>
+        <p className="eyebrow">Research department / Classification</p>
+        <h1>Lab notes</h1>
         <p>
           A multinomial logistic regression over {model.features.length} clues extracted from each failure's Playwright trace and page. It
           was trained on {model.trainedOn} failures whose cause was injected on purpose, and is scored with {m?.folds ?? 5}-fold
@@ -33,8 +33,8 @@ export function ModelPage() {
       </section>
 
       <section className="method-notes grid-2">
-        <div className="card"><h2>Why a small classifier?</h2><p>Retries, failed requests, and missing elements already carry useful information. Logistic regression gives a cheap baseline with inspectable weights. A larger model has to earn its place against it.</p></div>
-        <div className="card"><h2>Where the LLM fits</h2><p>Ollama writes an independent report and may propose a locator. It sees the evidence without the classifier’s answer. Reports and replacements still need review; fluent explanations can be wrong.</p></div>
+        <div className="card"><h2>Classifier</h2><p>Logistic regression uses retries, request failures, and page state. Its weights are listed below. Each evaluation compares it with deterministic rules and a majority baseline.</p></div>
+        <div className="card"><h2>Independent report</h2><p>Ollama reads the evidence without the classifier’s answer. It returns a diagnosis, explanation, and optional locator replacement. Reports and replacements require review.</p></div>
       </section>
 
       {m && (

@@ -52,15 +52,18 @@ export function App() {
       <a className="skip-link" href="#content">Skip to content</a>
       <header className="top">
         <a className="brand" href="#/">
-          <span className="brand-mark" aria-hidden="true">CF<small>01</small></span>
+          <svg className="brand-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true">
+            <circle cx="20" cy="20" r="14" strokeWidth="1.5" />
+            <path d="m30 30 12 12m-10-15 12 12M12 23c-4-12 12-18 17-7M15 25c-6-12 12-17 12-5M18 27c-6-9 6-16 7-7M20 22c-2-5 3-7 3-2" strokeWidth="1.2" strokeLinecap="round" />
+          </svg>
           <span className="brand-name">
             <b>Case Files</b>
-            <span>A test failure investigation lab</span>
+            <span>Test failure investigations</span>
           </span>
         </a>
         <nav className="tabs">
-          <a href="#/" aria-current={page === "board" || page === "case" ? "page" : undefined}>Cases</a>
-          <a href="#/model" aria-current={page === "model" ? "page" : undefined}>Method & results</a>
+          <a href="#/" aria-current={page === "board" || page === "case" ? "page" : undefined}>Case desk</a>
+          <a href="#/model" aria-current={page === "model" ? "page" : undefined}>Lab notes</a>
           <a href="#/patrols" aria-current={page === "patrols" ? "page" : undefined}>Run log</a>
         </nav>
         <button className="icon-btn" onClick={cycleTheme} aria-label={`Theme: ${theme}`} title="Theme: system, light, dark">
@@ -74,9 +77,9 @@ export function App() {
         {page === "patrols" && <Patrols />}
       </main>
       <footer className="site-footer">
-        <span>Built by <a href="https://github.com/ArthurGaspar">Arthur Gaspar</a> · São Paulo, Brazil</span>
-        <span>TypeScript / Playwright / local inference</span>
-        <a href="https://github.com/ArthurGaspar/e2e-detective">Read the source ↗</a>
+        <span><a href="https://github.com/ArthurGaspar">Arthur Gaspar</a> / São Paulo</span>
+        <span>Synthetic faults. Recorded evidence. Local inference.</span>
+        <a href="https://github.com/ArthurGaspar/e2e-detective">Source & field notes ↗</a>
       </footer>
     </>
   );

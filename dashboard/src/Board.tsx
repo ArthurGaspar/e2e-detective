@@ -1,99 +1,183 @@
-import { useState } from "react";
-import { CAUSE_LABEL, CAUSES, loadIndex, type Cause } from "./data";
-import { CauseChip, Tile, caseNo, causeColor, pct, useAsync, when } from "./ui";
+import { useEffect, useState } from "react";
+import { CAUSE_LABEL, CAUSES, loadCase, loadIndex, type Cause } from "./data";
+import { CauseChip, caseNo, useAsync, when } from "./ui";
 
-type Filter = Cause | "all" | "wrong";
+type Filter = Cause | "all";
 const PAGE_SIZE = 20;
 
 export function Board() {
   const { data: index, error } = useAsync(loadIndex, []);
   const [filter, setFilter] = useState<Filter>("all");
+  const [wrongOnly, setWrongOnly] = useState(false);
   const [query, setQuery] = useState("");
   const [visible, setVisible] = useState(PAGE_SIZE);
-  const judged = index?.cases.filter((c) => c.truth) ?? [];
-  const right = judged.filter((c) => c.verdict === c.truth).length;
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const search = query.trim().toLowerCase();
   const shown = (index?.cases ?? []).filter((c) =>
-    (filter === "all" || (filter === "wrong" ? c.truth && c.verdict !== c.truth : c.verdict === filter)) &&
-    `${c.test} ${c._id}`.toLowerCase().includes(query.toLowerCase().trim()),
+    (filter === "all" || c.verdict === filter) &&
+    (!wrongOnly || (c.truth && c.truth !== c.verdict)) &&
+    `${c.test} ${c._id}`.toLowerCase().includes(search),
   );
+  const selected = shown.find((c) => c._id === selectedId) ?? shown[0];
+  const wrong = index?.cases.filter((c) => c.truth && c.truth !== c.verdict).length ?? 0;
 
   return (
     <>
-      <section className="intro" aria-labelledby="intro-title">
-        <div className="intro-copy">
-          <p className="eyebrow">Arthur Gaspar / Engineering notebook 01</p>
-          <h1 id="intro-title">A failed test is<br />a starting point.</h1>
-          <p className="intro-deck">The useful part is finding out why.</p>
-          <p>Case Files turns Playwright traces into evidence for four possible causes: timing, infrastructure, an app bug, or a test that needs updating.</p>
-          <div className="intro-links">
-            <a className="button-link" href="#archive">Inspect the evidence <span aria-hidden="true">↓</span></a>
-            <a href="#/model">Read the method ↗</a>
-          </div>
+      <section className="desk-heading">
+        <div>
+          <p className="eyebrow">São Paulo / Test failure investigations</p>
+          <h1>Case desk<span className="heading-period">.</span></h1>
         </div>
-        <aside className="field-note">
-          <span className="eyebrow">01 / Why I built this</span>
-          <h2>The work after the red check.</h2>
-          <p>At Voidr, I worked on Playwright monitoring for critical user journeys. Investigating a failure meant reading the trace, checking the network, and deciding what actually needed fixing.</p>
-          <p>This is my small, public experiment with that workflow. I plant faults in a fictional São Paulo detective agency so each diagnosis has a known answer to check against.</p>
-          <a href="crime-scene/">Explore the test target ↗</a>
-          <span className="note-caption">Demo sign-in: <code>221B</code> / <code>elementary</code></span>
-        </aside>
+        <div className="desk-status">
+          <span className="status-lamp" aria-hidden="true" />
+          <span>{index?.source === "live" ? "Archive connected" : "Reference archive"}</span>
+          <span className="desk-date">{index ? when(index.updatedAt) : "Opening records…"}</span>
+        </div>
       </section>
 
-      <div className="pipeline" aria-label="Investigation process">
-        <span><b>01</b> Run a journey</span><span aria-hidden="true">→</span>
-        <span><b>02</b> Read the trace</span><span aria-hidden="true">→</span>
-        <span><b>03</b> Compare diagnoses</span><span aria-hidden="true">→</span>
-        <span><b>04</b> Check the known cause</span>
-      </div>
+      {index?.source === "sample" && (
+        <p className="archive-notice">
+          <b>Reference copy</b> Eight saved cases from 26 Oct 2026. Original rules-based findings, including mistakes. Live archive unavailable.
+        </p>
+      )}
 
-      <section id="archive" className="archive" aria-labelledby="archive-title">
-        <div className="section-heading">
-          <div><p className="eyebrow">02 / The evidence</p><h2 id="archive-title">Case archive</h2></div>
-          {index && <span className="small">{index.source === "sample" ? "Reference archive · 26 Oct 2026" : `Archive updated ${when(index.updatedAt)}`}</span>}
-        </div>
-        {index?.source === "sample" && <p className="archive-notice">The live archive is unavailable. This selection preserves historical rules-based diagnoses, including mistakes. These are saved cases, not current monitoring or a classifier benchmark.</p>}
-        {error ? <Empty title="The archive could not be opened">Try reloading the page. The method and source code are still available above.</Empty> : !index ? <p role="status">Loading recorded failures…</p> : <>
-          <div className="tiles">
-            <Tile value={index.cases.length} label="Recorded failures" sub={`${index.runs.length} runs in this archive`} />
-            {index.source === "sample"
-              ? <Tile value={CAUSES.length} label="Known failure causes" sub="illustrative selection · includes wrong diagnoses" />
-              : <Tile value={judged.length ? pct(right / judged.length) : "—"} label="Diagnoses matching the cause" sub={`${right} of ${judged.length} labeled cases · not a validation score`} />}
-            <Tile value={index.cases.filter((c) => c.healable).length} label="Locator suggestions" sub="proposals for review, not verified fixes" />
-          </div>
-          <div className="archive-tools">
-            <div className="filters" role="group" aria-label="Filter cases">
-              {(["all", ...CAUSES, "wrong"] as Filter[]).map((f) => <button key={f} aria-pressed={filter === f} onClick={() => { setFilter(f); setVisible(PAGE_SIZE); }}>
-                {f === "all" ? "All causes" : f === "wrong" ? "Wrong diagnoses" : CAUSE_LABEL[f]}
-              </button>)}
+      {error ? (
+        <Empty title="Archive unavailable">Reload to try again.</Empty>
+      ) : !index ? (
+        <p role="status">Opening the case register…</p>
+      ) : (
+        <div className="case-desk">
+          <section className="case-register" aria-labelledby="register-title">
+            <div className="folder-tab"><span>Register</span><span>{String(index.cases.length).padStart(2, "0")} files</span></div>
+            <div className="register-controls">
+              <div className="register-title">
+                <h2 id="register-title">Case register</h2>
+                <span>{wrong} to review</span>
+              </div>
+              <label className="search">
+                Find a case
+                <input type="search" placeholder="Test name or file number…" value={query}
+                  onChange={(e) => { setQuery(e.target.value); setVisible(PAGE_SIZE); }} />
+              </label>
+              <div className="register-filters">
+                <label className="cause-filter">
+                  <span>Diagnosis</span>
+                  <select value={filter} onChange={(e) => { setFilter(e.target.value as Filter); setVisible(PAGE_SIZE); }}>
+                    <option value="all">All causes</option>
+                    {CAUSES.map((cause) => <option key={cause} value={cause}>{CAUSE_LABEL[cause]}</option>)}
+                  </select>
+                </label>
+                <button className="review-filter" aria-pressed={wrongOnly}
+                  onClick={() => { setWrongOnly((value) => !value); setVisible(PAGE_SIZE); }}>
+                  Wrong diagnoses <span>{wrong}</span>
+                </button>
+              </div>
             </div>
-            <label className="search">Find a case<input type="search" placeholder="Test name or case ID" value={query} onChange={(e) => { setQuery(e.target.value); setVisible(PAGE_SIZE); }} /></label>
-          </div>
-          <div className="archive-caption"><span>Journey / Recorded at</span><span>Diagnosis / Known cause</span></div>
-          <ul className="cases">
-            {shown.slice(0, visible).map((c) => <li key={c._id}>
-              <a className="case-card" href={`#/case/${c._id}`} style={{ ["--cause" as string]: causeColor(c.verdict) }}>
-                <span className="case-identity"><span className="no">{caseNo(c._id)} · {when(c.openedAt)}</span><span className="title">{c.test}</span><span className="case-tags">{c.reported ? "Includes independent LLM report" : "Trace analysis"}{c.healable && " · Locator suggestion"}</span></span>
-                <span className="case-diagnosis"><CauseChip cause={c.verdict} /><span className="small">Known cause: {c.truth ? CAUSE_LABEL[c.truth] : "unlabeled"}</span></span>
-                <span className={`case-result ${c.truth ? c.truth === c.verdict ? "ok" : "bad" : "muted"}`}>{c.truth ? c.truth === c.verdict ? "Match" : "Mismatch" : "Unscored"}<span aria-hidden="true"> ↗</span></span>
-              </a>
-            </li>)}
-          </ul>
-          <p className="small" role="status">{shown.length ? `${Math.min(visible, shown.length)} of ${shown.length} matching cases` : "No cases match these filters. Try another cause or search term."}</p>
-          {shown.length > visible && <button className="load-more" onClick={() => setVisible((n) => n + PAGE_SIZE)}>Show 20 more cases</button>}
-        </>}
-      </section>
+            <ul className="cases">
+              {shown.slice(0, visible).map((c) => (
+                <li key={c._id}>
+                  <button className="case-card" aria-pressed={selected?._id === c._id}
+                    onClick={() => setSelectedId(c._id)}>
+                    <span className="file-glyph" aria-hidden="true" />
+                    <span className="case-identity">
+                      <span className="no">{caseNo(c._id)}</span>
+                      <span className="title">{c.test}</span>
+                      <span className="case-row-meta"><CauseChip cause={c.verdict} />{when(c.openedAt)}</span>
+                    </span>
+                    <span className={`register-mark ${c.truth && c.truth !== c.verdict ? "bad" : "muted"}`}>
+                      {c.truth && c.truth !== c.verdict ? "!" : "↗"}
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <p className="register-count" role="status">
+              {shown.length ? `${Math.min(visible, shown.length)} / ${shown.length} files` : "No cases match these filters. Try another cause or search term."}
+            </p>
+            {shown.length > visible && (
+              <button className="load-more" onClick={() => setVisible((n) => n + PAGE_SIZE)}>Show 20 more files</button>
+            )}
+          </section>
 
-      <section className="research-note">
-        <span className="eyebrow">03 / What this experiment can tell us</span>
-        <h2>A useful diagnosis needs a fair test.</h2>
-        <p>The faults here are synthetic. Repeated journeys make this an easier problem than production, and the features were refined after inspecting errors. The archive shows individual predictions; cross-validation and baselines belong in the evaluation.</p>
-        <a href="#/model">Inspect the evaluation and its limits ↗</a>
-      </section>
+          {selected ? <CasePreview key={selected._id} id={selected._id} reveal={selectedId === selected._id} /> : (
+            <div className="no-selection"><p>Select a different filter to open a file.</p></div>
+          )}
+        </div>
+      )}
+      <aside className="desk-footnote">
+        <span>Control room</span>
+        <a href="crime-scene/">Enter test target ↗</a>
+        <span>Badge <code>221B</code> / Password <code>elementary</code></span>
+        <a href="#/model">Classification method & results ↗</a>
+      </aside>
     </>
   );
 }
 
+function CasePreview({ id, reveal }: { id: string; reveal: boolean }) {
+  const { data: c, error } = useAsync(() => loadCase(id), [id]);
+  useEffect(() => {
+    if (c && reveal && window.matchMedia("(max-width: 760px)").matches) {
+      document.getElementById("selected-case")?.scrollIntoView({ block: "start" });
+    }
+  }, [c, reveal]);
+  if (error) return <Empty title="File unavailable">Try another case in the register.</Empty>;
+  if (!c) return <div className="evidence-document" role="status">Retrieving evidence…</div>;
+
+  const last = c.attempts.at(-1);
+  const diagnosis = c.report?.verdict ?? c.verdict.cause;
+  const mismatch = c.truth.cause && diagnosis !== c.truth.cause;
+  const author = c.report ? "LLM report" : c.verdict.by === "model" ? "Classifier" : "Rules";
+
+  return (
+    <article id="selected-case" className="evidence-document" aria-label="Selected case evidence">
+      <div className="document-ruler"><span>Investigation file</span><span>{caseNo(c._id)}</span></div>
+      <header className="document-heading">
+        <div>
+          <p className="eyebrow">Playwright / {c.attempts.length} recorded attempts</p>
+          <h2>{c.test.title}</h2>
+        </div>
+        <span className={`rubber-stamp ${mismatch ? "bad" : "ok"}`}>{mismatch ? "Review\nrequired" : c.truth.cause ? "Cause\nmatched" : "Unscored"}</span>
+      </header>
+      <div className="file-facts">
+        <span><b>Filed</b> {when(c.openedAt)}</span>
+        <span><b>Source</b> {author}</span>
+        <span><b>Outcome</b> {c.outcome === "flaky" ? "Passed on retry" : "Failed"}</span>
+      </div>
+
+      {c.screenshot && (
+        <figure className="evidence-photo">
+          <span className="paperclip" aria-hidden="true" />
+          <img src={c.screenshot} alt={`Recorded page for ${c.test.title}`} />
+          <figcaption><span>Exhibit A / Last trace frame</span><span>Original capture</span></figcaption>
+        </figure>
+      )}
+
+      <div className="case-findings">
+        <section className="finding">
+          <h3><span>01</span> Diagnosis</h3>
+          <p className="finding-cause"><CauseChip cause={diagnosis} /></p>
+          <p className="small">Injected cause: <b>{c.truth.cause ? CAUSE_LABEL[c.truth.cause] : "None"}</b></p>
+          {mismatch && <p className="review-annotation">Finding does not match the planted fault.</p>}
+        </section>
+        <section className="finding failure-record">
+          <h3><span>02</span> Failure record</h3>
+          <pre>{last?.error.split("\n").filter(Boolean).slice(0, 4).join("\n") || "No error text captured."}</pre>
+        </section>
+      </div>
+      <div className="document-actions">
+        <span>{last?.api.length ?? 0} API calls · {c.healLeads.length} locator leads</span>
+        <a href={`#/case/${c._id}`}>Open full case file <span aria-hidden="true">↗</span></a>
+      </div>
+    </article>
+  );
+}
+
 export function Empty({ title, children }: { title: string; children?: React.ReactNode }) {
-  return <div className="empty" role="status"><h1>{title}</h1>{children && <p>{children}</p>}</div>;
+  return (
+    <div className="empty" role="status">
+      <h1>{title}</h1>
+      {children && <p>{children}</p>}
+    </div>
+  );
 }

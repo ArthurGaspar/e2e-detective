@@ -4,7 +4,7 @@
 
 [Open the dashboard](https://arthurgaspar.github.io/e2e-detective/) · [Explore the test target](https://arthurgaspar.github.io/e2e-detective/crime-scene/)
 
-![Case Files: a personal engineering notebook with a searchable archive of recorded Playwright failures](docs/dashboard.png)
+![Case Files in dark mode: a file register beside a textured investigation sheet, with recorded evidence and a review stamp](docs/dashboard.png)
 
 At Voidr, I worked on synthetic monitoring for critical user journeys. A failing test was the start of an investigation: read the trace, check the network, and decide whether the app, the infrastructure, or the test needed fixing. This project makes that workflow inspectable in a small public experiment.
 
@@ -12,9 +12,9 @@ The test target is a fictional São Paulo detective agency. Its missing brigadei
 
 ## Try it in two minutes
 
-1. Open a case in the dashboard. Read the failed step, API timings, screenshot, and accessibility snapshot.
+1. Select a file in the case register. The desk shows its recorded screenshot, failure, and diagnosis. Open the full file for API timings and the accessibility snapshot.
 2. Compare the diagnosis with the known injected cause. Use **Wrong diagnoses** to inspect mistakes.
-3. Open **Method & results** to inspect the confusion matrix, baselines, and feature weights.
+3. Open **Lab notes** to inspect the confusion matrix, baselines, and feature weights.
 
 The dashboard reads the `runs-data` branch. When that archive is unavailable, it uses eight bundled, explicitly labeled historical cases. They retain their original rules-based outputs, including errors. This curated selection is for inspection, not benchmarking; its provenance is in [`dashboard/public/sample/README.md`](dashboard/public/sample/README.md).
 
@@ -112,6 +112,8 @@ npm run test:e2e
 npm run test:dashboard
 npm --prefix dashboard run build
 ```
+
+README screenshots use dark mode. With the dashboard development server running, `npm run screenshot` refreshes the image from the bundled reference archive.
 
 The deployment workflow checks agent tests, types, the dashboard build, and desktop/mobile browser flows. The browser tests exercise archive fallback, search, filters, evidence, deep links, theme persistence, and navigation.
 
