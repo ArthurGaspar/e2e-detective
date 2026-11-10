@@ -25,6 +25,7 @@ The dashboard reads the `runs-data` branch. When that archive is unavailable, it
 - **Failure classification:** multinomial logistic regression over 17 observable features, implemented in TypeScript and compared with deterministic rules and a majority baseline.
 - **Local LLM tools:** Ollama writes independent reports, records tests from plain-language journeys, and proposes locator replacements. Each recorder action is checked against the live page before it is accepted.
 - **Evidence browser:** a React dashboard with search, cause filters, wrong diagnoses, case details, evaluation results, and a run log.
+- **External trace CLI:** offline analysis of an ordinary Playwright `trace.zip`, with JSON, Markdown and SARIF reports containing recorded evidence and suggestions for human review. An independent TodoMVC example demonstrates the workflow outside this lab.
 
 ## Results and their limits
 
@@ -119,6 +120,38 @@ The official `mongodb` driver is an optional dependency installed by `npm ci`; i
 The adapter stores documents in `cases` and `runs`, and JPEG bytes in `screenshots` in the selected database. Each document/image must fit MongoDB's 16 MiB document limit. Saving a report preserves the original screenshot. Rebuilding the index after patrol or investigation keeps the latest 400 cases and 300 runs, removes expired screenshots, and exports JSON, images, and `index.json` into `--data` (default `.runs-data/`) for the existing static dashboard. That export replaces generated case/run files in the destination; use a dedicated directory. Existing JSON archives are not imported into MongoDB automatically. Training, evaluation, healing, and sweeps also select MongoDB when the URI is set; sweeps write their training records to `model/training.jsonl` as before.
 
 For scheduled patrols, add a repository Actions secret named `MONGODB_URI`; the workflow already passes it to the patrol command. The database must be reachable from the runner. Without that secret, scheduled patrols keep using JSON. Database credentials remain on the agent side; the static dashboard reads only the exported archive.
+
+## Analyze a trace from another application
+
+Capture a trace with Playwright Test, for example `npx playwright test --trace on`, then pass a single ZIP to the CLI. No JSON test report, lab fixtures, MongoDB, model training or Ollama is required. Analysis runs locally and does not contact the recorded application.
+
+```sh
+npm run analyze-trace -- path/to/trace.zip --output report.json
+npm run analyze-trace -- path/to/trace.zip --format markdown --output report.md
+npm run analyze-trace -- path/to/trace.zip --format sarif --output report.sarif
+```
+
+The default format is JSON. Omit `--output` to write to stdout; use `npm run --silent analyze-trace -- path/to/trace.zip` when piping JSON so npm's script banner is excluded. A successful analysis exits 0 even when it finds failures. Invalid arguments, missing/invalid archives, or write errors exit 1. Output directories are created automatically.
+
+Reports include a SHA-256 fingerprint of the ZIP, the failing operation and locator where available, source file/line, error text, references to metadata entries and line numbers, network responses and console errors. The diagnoses distinguish assertion mismatches, unresolved locators, action readiness, network failures, HTTP errors, timeouts and unclassified failures. Network evidence covers all endpoint paths, not just `/api/`. HTTP failures remain separate observations rather than automatically being blamed for a failing test. Suggestions always require review; SARIF contains no automatic fixes.
+
+These rules describe observable symptoms, not a proven root cause. A single trace cannot establish flakiness or reliably distinguish a wrong assertion from an application defect. The synthetic lab classifier is deliberately not applied to external traces. A trace with no recorded failure is labeled `no_failure_observed`, not “passed.” Prefer Playwright Test traces: library-only tracing can omit assertions and test-level failures. Trace metadata is an internal Playwright format, so malformed records produce warnings and unsupported/missing metadata may prevent analysis. ZIPs are read in memory without extraction, with limits of 32 MiB compressed and 128 MiB expanded metadata. Network-context URLs omit credentials, query strings and fragments; error text, console messages and source paths can still contain private information.
+
+### Reproducible external proof
+
+```sh
+npx playwright install chromium
+npm run proof:external
+```
+
+This visits the independent public [TodoMVC application](https://demo.playwright.dev/todomvc/), creates one task, and deliberately runs two incorrect tests. The wrapper checks that they fail for the intended reasons, diagnoses their ZIPs, checks the expected diagnoses, and writes all three formats to `.scratch/external-proof/reports/`. The wrapper exits 0 only when this proof succeeds; Playwright's two intentional failures appear in its output. Network or setup failures make the proof fail.
+
+| External test | Observed evidence | Diagnosis |
+|---|---|---|
+| Incorrect task count | Expected `2 items left`, received `1 item left` | `assertion_mismatch` |
+| Nonexistent archive button | Timed out waiting for `Archive tasks` | `locator_not_found` |
+
+Captured ZIPs are committed as offline regression fixtures. The [example documentation](examples/external/README.md) links ready-to-read reports and records their provenance. `npm test` checks these captures and all three CLI output formats without contacting TodoMVC. This is evidence that ingestion and diagnosis work outside the original lab, not an accuracy benchmark on production failures.
 
 ## Validation and repository map
 

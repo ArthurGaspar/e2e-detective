@@ -9,5 +9,5 @@
     "types": ["node"],
     "noEmit": true
   },
-  "include": ["agent", "tests", "playwright.config.ts"]
+  "include": ["agent", "tests", "examples/external", "playwright.config.ts"]
 }

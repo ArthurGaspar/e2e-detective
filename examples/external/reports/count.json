@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "tool": "e2e-detective",
+  "input": {
+    "name": "count.zip",
+    "sha256": "6a57313717a0b0b4202bd6783ec042dc5e19f42ce4fabd3984756b6dfe9354c8"
+  },
+  "status": "failures_observed",
+  "findings": [
+    {
+      "id": "F1",
+      "diagnosis": "assertion_mismatch",
+      "summary": "The observed value did not match the test's expectation.",
+      "certainty": "observed",
+      "suggestions": [
+        {
+          "text": "Compare the expected and received values with the setup steps and product requirements. Correct the assertion only if its expectation is wrong; otherwise investigate the application state.",
+          "requiresReview": true
+        }
+      ],
+      "action": "Expect \"toHaveText\"",
+      "locator": "locator('.todo-count')",
+      "location": {
+        "file": "E:\\Bibliotecas\\Documentos\\PROGRAMMING\\2026\\github\\e2e-detective\\examples\\external\\todomvc.spec.ts",
+        "line": 11,
+        "column": 45
+      },
+      "evidence": [
+        {
+          "kind": "error",
+          "text": "Error: expect(locator).toHaveText(expected) failed\n\nLocator:  locator('.todo-count')\nExpected: \"2 items left\"\nReceived: \"1 item left\"\nTimeout:  1500ms\n\nCall log:\n  - Expect \"toHaveText\" locator('.todo-count') with timeout 1500ms\n  - waiting for locator('.todo-count')\n    15 × locator resolved to <span class=\"todo-count\" data-testid=\"todo-count\">…</span>\n       - unexpected value \"1 item left\"\n",
+          "source": {
+            "entry": "test.trace",
+            "line": 25,
+            "callId": "mfro@58"
+          }
+        }
+      ]
+    }
+  ],
+  "context": {
+    "urls": [
+      "about:blank",
+      "https://demo.playwright.dev/todomvc/"
+    ],
+    "consoleErrors": [],
+    "network": [
+      {
+        "url": "https://demo.playwright.dev/todomvc/base.css",
+        "status": 200,
+        "durationMs": 24.265,
+        "failure": null,
+        "source": {
+          "entry": "1-trace.network",
+          "line": 1
+        }
+      },
+      {
+        "url": "https://demo.playwright.dev/todomvc/index.css",
+        "status": 200,
+        "durationMs": 24.556,
+        "failure": null,
+        "source": {
+          "entry": "1-trace.network",
+          "line": 2
+        }
+      },
+      {
+        "url": "https://demo.playwright.dev/todomvc/js/director.js",
+        "status": 200,
+        "durationMs": 24.378,
+        "failure": null,
+        "source": {
+          "entry": "1-trace.network",
+          "line": 3
+        }
+      },
+      {
+        "url": "https://demo.playwright.dev/todomvc/",
+        "status": 200,
+        "durationMs": 64.687,
+        "failure": null,
+        "source": {
+          "entry": "1-trace.network",
+          "line": 4
+        }
+      },
+      {
+        "url": "https://demo.playwright.dev/todomvc/js/bundle.js",
+        "status": 200,
+        "durationMs": 57.954,
+        "failure": null,
+        "source": {
+          "entry": "1-trace.network",
+          "line": 5
+        }
+      }
+    ]
+  },
+  "warnings": [],
+  "limitations": [
+    "Diagnoses describe recorded symptoms; a single trace does not establish root cause or flakiness.",
+    "No failure observed does not prove the test passed. Library-only traces can omit assertions and test-level errors.",
+    "The lab-trained classifier is not used for external traces. Suggestions require human review and never edit source files.",
+    "URLs in network context omit credentials, queries and fragments; error messages and source paths may still contain private data.",
+    "Playwright trace metadata is an internal format; missing or unsupported records can limit this report."
+  ]
+}

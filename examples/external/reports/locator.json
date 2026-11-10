@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "tool": "e2e-detective",
+  "input": {
+    "name": "locator.zip",
+    "sha256": "8e60c193b2ccc1de0510e634dd1fe7bb9109d1883f861d4f13adaf37d5429810"
+  },
+  "status": "failures_observed",
+  "findings": [
+    {
+      "id": "F1",
+      "diagnosis": "locator_not_found",
+      "summary": "The failing step waited for a locator that did not resolve in time.",
+      "certainty": "observed",
+      "suggestions": [
+        {
+          "text": "Compare the locator with the recorded page and prerequisites. Check for a missing feature, wrong state or changed accessible name; confirm the intended control before proposing a replacement.",
+          "requiresReview": true
+        }
+      ],
+      "action": "Click",
+      "locator": "getByRole('button', { name: 'Archive tasks', exact: true })",
+      "location": {
+        "file": "E:\\Bibliotecas\\Documentos\\PROGRAMMING\\2026\\github\\e2e-detective\\examples\\external\\todomvc.spec.ts",
+        "line": 16,
+        "column": 74
+      },
+      "evidence": [
+        {
+          "kind": "error",
+          "text": "TimeoutError: locator.click: Timeout 1500ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: 'Archive tasks', exact: true })\n",
+          "source": {
+            "entry": "test.trace",
+            "line": 25,
+            "callId": "umad@58"
+          }
+        }
+      ]
+    }
+  ],
+  "context": {
+    "urls": [
+      "about:blank",
+      "https://demo.playwright.dev/todomvc/"
+    ],
+    "consoleErrors": [],
+    "network": [
+      {
+        "url": "https://demo.playwright.dev/todomvc/",
+        "status": 200,
+        "durationMs": 72.819,
+        "failure": null,
+        "source": {
+          "entry": "1-trace.network",
+          "line": 1
+        }
+      },
+      {
+        "url": "https://demo.playwright.dev/todomvc/index.css",
+        "status": 200,
+        "durationMs": 21.372999999999998,
+        "failure": null,
+        "source": {
+          "entry": "1-trace.network",
+          "line": 2
+        }
+      },
+      {
+        "url": "https://demo.playwright.dev/todomvc/base.css",
+        "status": 200,
+        "durationMs": 41.376000000000005,
+        "failure": null,
+        "source": {
+          "entry": "1-trace.network",
+          "line": 3
+        }
+      },
+      {
+        "url": "https://demo.playwright.dev/todomvc/js/director.js",
+        "status": 200,
+        "durationMs": 42.801,
+        "failure": null,
+        "source": {
+          "entry": "1-trace.network",
+          "line": 4
+        }
+      },
+      {
+        "url": "https://demo.playwright.dev/todomvc/js/bundle.js",
+        "status": 200,
+        "durationMs": 56.307,
+        "failure": null,
+        "source": {
+          "entry": "1-trace.network",
+          "line": 5
+        }
+      }
+    ]
+  },
+  "warnings": [],
+  "limitations": [
+    "Diagnoses describe recorded symptoms; a single trace does not establish root cause or flakiness.",
+    "No failure observed does not prove the test passed. Library-only traces can omit assertions and test-level errors.",
+    "The lab-trained classifier is not used for external traces. Suggestions require human review and never edit source files.",
+    "URLs in network context omit credentials, queries and fragments; error messages and source paths may still contain private data.",
+    "Playwright trace metadata is an internal format; missing or unsupported records can limit this report."
+  ]
+}

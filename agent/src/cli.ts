@@ -8,6 +8,7 @@
  *   investigate  write LLM reports for cases that don't have one (needs Ollama)
  *   generate     record a Playwright test from a plain-language journey (needs Ollama)
  *   heal         rewrite a broken locator in a spec using a case's best lead
+ *   analyze-trace <trace.zip> [--format json|markdown|sarif] [--output path]
  */
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
@@ -20,6 +21,7 @@ import { evaluate, train, type Model, type Sample } from "./model";
 import { MODEL_PATH, ROOT, loadModel, patrol } from "./patrol";
 import { extractFeatures, type FeatureInput } from "./features";
 import { createStore, inputFromCase, type CaseDoc, type Store } from "./store";
+import { analyzeTrace, formatTraceReport, type ReportFormat } from "./analyze-trace";
 
 const TRAINING_PATH = join(ROOT, "model/training.jsonl");
 
@@ -36,6 +38,8 @@ const { positionals, values } = parseArgs({
     retrain: { type: "boolean", default: false },
     "faults-only": { type: "boolean", default: false },
     model: { type: "string" },
+    format: { type: "string", default: "json" },
+    output: { type: "string", short: "o" },
   },
 });
 
@@ -92,6 +96,19 @@ async function retrain(s: Store): Promise<Model | null> {
 
 async function main() {
   switch (command) {
+    case "analyze-trace": {
+      if (args.length !== 1) throw new Error("Usage: npm run analyze-trace -- <trace.zip> [--format json|markdown|sarif] [--output path]");
+      if (!["json", "markdown", "sarif"].includes(values.format!)) throw new Error("Format must be json, markdown or sarif.");
+      const input = resolve(args[0]);
+      const output = values.output ? resolve(values.output) : null;
+      if (output === input) throw new Error("Output must differ from the input trace ZIP.");
+      const result = formatTraceReport(analyzeTrace(input), values.format as ReportFormat);
+      if (output) {
+        mkdirSync(resolve(output, ".."), { recursive: true });
+        writeFileSync(output, result);
+      } else process.stdout.write(result);
+      break;
+    }
     case "patrol": {
       const s = await store();
       const model = values.retrain ? await retrain(s) : loadModel();
