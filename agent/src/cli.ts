@@ -9,7 +9,7 @@
  *   generate     record a Playwright test from a plain-language journey (needs Ollama)
  *   heal         rewrite a broken locator in a spec using a case's best lead
  */
-import { appendFileSync, existsSync, readFileSync, writeFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { generate } from "./generate";
@@ -19,7 +19,7 @@ import { Ollama } from "./llm";
 import { evaluate, train, type Model, type Sample } from "./model";
 import { MODEL_PATH, ROOT, loadModel, patrol } from "./patrol";
 import { extractFeatures, type FeatureInput } from "./features";
-import { JsonStore, inputFromCase, type CaseDoc } from "./store";
+import { createStore, inputFromCase, type CaseDoc, type Store } from "./store";
 
 const TRAINING_PATH = join(ROOT, "model/training.jsonl");
 
@@ -40,7 +40,8 @@ const { positionals, values } = parseArgs({
 });
 
 const [command, ...args] = positionals;
-const store = () => new JsonStore(resolve(ROOT, values.data!));
+let activeStore: Store | undefined;
+const store = async () => activeStore ??= await createStore(resolve(ROOT, values.data!));
 const seed = () => (values.seed ? Number(values.seed) : Math.floor(Math.random() * 2 ** 31));
 
 /** One line per labeled failure: its case id, evidence and injected cause. Features are computed on read. */
@@ -80,10 +81,11 @@ function samplesFrom(cases: CaseDoc[]): Sample[] {
  * saves the result next to the cases, so the published model improves with each
  * patrol. Falls back to the bundled model while there is too little data.
  */
-async function retrain(s: JsonStore): Promise<Model | null> {
+async function retrain(s: Store): Promise<Model | null> {
   const samples = samplesFrom(await s.listCases());
   if (samples.length < 20) return loadModel();
   const model: Model = { ...train(samples), metrics: evaluate(samples) };
+  mkdirSync(resolve(ROOT, values.data!), { recursive: true });
   writeFileSync(join(resolve(ROOT, values.data!), "model.json"), JSON.stringify(model));
   return model;
 }
@@ -91,7 +93,7 @@ async function retrain(s: JsonStore): Promise<Model | null> {
 async function main() {
   switch (command) {
     case "patrol": {
-      const s = store();
+      const s = await store();
       const model = values.retrain ? await retrain(s) : loadModel();
       const { run, cases } = await patrol({ store: s, model, seed: seed(), trigger: values.trigger!, target: values.target, scenario: values.scenario });
       await s.rebuildIndex();
@@ -101,7 +103,7 @@ async function main() {
     }
     case "sweep": {
       const runs = Number(values.runs);
-      const s = new JsonStore(resolve(ROOT, ".sweep-data"));
+      const s = activeStore = await createStore(resolve(ROOT, ".sweep-data"));
       let added = 0;
       for (let i = 0; i < runs; i++) {
         const { cases } = await patrol({ store: s, model: null, seed: seed(), trigger: "sweep", target: values.target, faultsOnly: values["faults-only"] });
@@ -118,7 +120,7 @@ async function main() {
       break;
     }
     case "train": {
-      const samples = samplesFrom(existsSync(resolve(ROOT, values.data!)) ? await store().listCases() : []);
+      const samples = samplesFrom(await (await store()).listCases());
       if (samples.length < 20) throw new Error(`Only ${samples.length} labeled samples; run \`npm run sweep\` first.`);
       const metrics = evaluate(samples);
       const model = { ...train(samples), metrics };
@@ -128,7 +130,7 @@ async function main() {
       break;
     }
     case "evaluate": {
-      const samples = samplesFrom(existsSync(resolve(ROOT, values.data!)) ? await store().listCases() : []);
+      const samples = samplesFrom(await (await store()).listCases());
       if (samples.length < 20) throw new Error(`Only ${samples.length} labeled samples; at least 20 are required.`);
       const metrics = evaluate(samples, 5, values.seed ? Number(values.seed) : 1);
       console.log(JSON.stringify(metrics, null, 2));
@@ -136,7 +138,7 @@ async function main() {
       break;
     }
     case "investigate": {
-      const s = store();
+      const s = await store();
       const llm = new Ollama(values.model);
       const open = (await s.listCases()).filter((c) => !c.report).sort((a, b) => b._id.localeCompare(a._id)).slice(0, Number(values.limit));
       if (!open.length) console.log("Every case already has a report.");
@@ -168,7 +170,7 @@ async function main() {
     case "heal": {
       const id = args[0];
       if (!id) throw new Error("Usage: npm run heal -- <caseId>");
-      const c = await store().getCase(id);
+      const c = await (await store()).getCase(id);
       if (!c) throw new Error(`No case ${id} in ${values.data}`);
       const broken = c.attempts[c.attempts.length - 1].locator;
       const replacement = c.report?.fixedLocator ?? c.healLeads[0]?.locator;
@@ -186,7 +188,9 @@ async function main() {
   }
 }
 
-main().catch((err) => {
+main().finally(async () => {
+  await activeStore?.close();
+}).catch((err) => {
   console.error(err instanceof Error ? err.message : err);
   process.exit(1);
 });

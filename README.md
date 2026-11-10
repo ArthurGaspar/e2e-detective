@@ -58,7 +58,7 @@ One instructive failure shaped the features: an incorrect counter and a renamed 
 
 **Suggestions require review.** Similarity-based locator ranking handles overlapping names such as “Add evidence” → “Log evidence.” Pure synonyms are harder. A plausible replacement can also hide a real app bug, so the heal command proposes a source change for human review and a test rerun.
 
-**Static hosting, explicit tradeoffs.** GitHub Pages serves the UI and test target. Actions publishes JSON evidence to a data branch; Ollama runs locally. This avoids a hosted backend or paid inference dependency, at the cost of bounded retention (400 cases / 300 runs), Git history growth, and no production database or authentication.
+**Static hosting, explicit tradeoffs.** GitHub Pages serves the UI and test target. Actions publishes JSON evidence to a data branch; Ollama runs locally. Storage defaults to JSON, with an optional MongoDB adapter. The archive has bounded retention (400 cases / 300 runs), Git history growth, and no dashboard authentication.
 
 ```mermaid
 flowchart LR
@@ -103,6 +103,23 @@ npm run heal -- <caseId>                      # edit a locator; review and rerun
 
 Set `OLLAMA_MODEL` to choose another model. Recorded assertions may still be weaker than the journey intended; passing the recorder’s checks does not replace review.
 
+### Optional MongoDB storage
+
+Set `MONGODB_URI` to use MongoDB instead of local JSON as the source of cases and runs. Include a database name in the URI; otherwise the driver uses `test`. For example, in PowerShell:
+
+```powershell
+$env:MONGODB_URI = "mongodb://127.0.0.1:27017/e2e_detective"
+npm run patrol -- --seed 42
+npm run investigate
+Remove-Item Env:MONGODB_URI  # return to JSON storage
+```
+
+The official `mongodb` driver is an optional dependency installed by `npm ci`; installations that omit optional dependencies need `npm install --include=optional` before enabling this adapter. With no URI (or an empty one), commands continue to use JSON. A configured MongoDB connection failure stops the command rather than silently switching storage. Connections close when commands finish, including after errors.
+
+The adapter stores documents in `cases` and `runs`, and JPEG bytes in `screenshots` in the selected database. Each document/image must fit MongoDB's 16 MiB document limit. Saving a report preserves the original screenshot. Rebuilding the index after patrol or investigation keeps the latest 400 cases and 300 runs, removes expired screenshots, and exports JSON, images, and `index.json` into `--data` (default `.runs-data/`) for the existing static dashboard. That export replaces generated case/run files in the destination; use a dedicated directory. Existing JSON archives are not imported into MongoDB automatically. Training, evaluation, healing, and sweeps also select MongoDB when the URI is set; sweeps write their training records to `model/training.jsonl` as before.
+
+For scheduled patrols, add a repository Actions secret named `MONGODB_URI`; the workflow already passes it to the patrol command. The database must be reachable from the runner. Without that secret, scheduled patrols keep using JSON. Database credentials remain on the agent side; the static dashboard reads only the exported archive.
+
 ## Validation and repository map
 
 ```sh
@@ -119,7 +136,7 @@ The deployment workflow checks agent tests, types, the dashboard build, and desk
 
 | Directory | Responsibility |
 |---|---|
-| `agent/src/` | Evidence extraction, features, model, LLM tools, JSON storage, CLI |
+| `agent/src/` | Evidence extraction, features, model, LLM tools, JSON/MongoDB storage, CLI |
 | `agent/test/` | Classifier, recorder guards, locator logic, and summary regression tests |
 | `tests/` | Playwright journeys and the fault-injection fixture |
 | `crime-scene/` | Static test application with controlled buggy releases |

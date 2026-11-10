@@ -48,6 +48,8 @@ jobs:
           fi
 
       - name: Patrol
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: |
           # The crime scene is deployed with the dashboard at https://<owner>.github.io/<repo>/crime-scene/
           target="https://${GITHUB_REPOSITORY_OWNER,,}.github.io/${GITHUB_REPOSITORY#*/}/crime-scene/"

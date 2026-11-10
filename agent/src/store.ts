@@ -87,6 +87,7 @@ export interface Store {
   getCase(id: string): Promise<CaseDoc | null>;
   listCases(): Promise<CaseDoc[]>;
   rebuildIndex(): Promise<Index>;
+  close(): Promise<void>;
 }
 
 /** The evidence a case's features are computed from. */
@@ -109,10 +110,19 @@ const summarize = (c: CaseDoc): CaseSummary => ({
   healable: c.healLeads.length > 0,
 });
 
-const KEEP_CASES = 400;
-const KEEP_RUNS = 300;
+export const KEEP_CASES = 400;
+export const KEEP_RUNS = 300;
+
+/** Load the optional driver only when MongoDB is selected. */
+export async function createStore(dir: string, uri = process.env.MONGODB_URI): Promise<Store> {
+  if (!uri?.trim()) return new JsonStore(dir);
+  const { MongoStore } = await import("./mongo-store");
+  return MongoStore.connect(uri, dir);
+}
 
 export class JsonStore implements Store {
+  async close() {}
+
   constructor(private dir: string) {
     mkdirSync(join(dir, "runs"), { recursive: true });
     mkdirSync(join(dir, "cases"), { recursive: true });
@@ -120,6 +130,17 @@ export class JsonStore implements Store {
 
   private write(rel: string, data: unknown) {
     writeFileSync(join(this.dir, rel), JSON.stringify(data, null, 1));
+  }
+
+  /** Clear generated evidence when replacing a static export from another backend. */
+  async clearArchive() {
+    for (const subdir of ["cases", "runs"]) {
+      for (const file of readdirSync(join(this.dir, subdir))) {
+        if (file.endsWith(".json") || (subdir === "cases" && file.endsWith(".jpg"))) {
+          rmSync(join(this.dir, subdir, file));
+        }
+      }
+    }
   }
 
   async saveRun(run: RunDoc) {
