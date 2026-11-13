@@ -17,8 +17,10 @@ export default defineConfig({
     baseURL: target ?? "http://localhost:4400/",
     actionTimeout: 5_000,
     navigationTimeout: 10_000,
-    trace: "retain-on-failure",
-    screenshot: "only-on-failure",
+    // Playwright traces can retain raw bodies, headers and page content.
+    trace: "off",
+    // Failure screenshots are captured by the shared fixture with masks.
+    screenshot: "off",
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: target

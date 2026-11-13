@@ -10,12 +10,16 @@
 import { test as base, expect } from "@playwright/test";
 import { SLOW_REQUEST_CHANCE, SLOW_REQUEST_MS, scenarioById, testKey } from "../agent/src/scenarios";
 import type { Candidate } from "../agent/src/heal";
+import { captureMaskedScreenshot } from "../agent/src/screenshot";
+import { collectNetwork } from "../agent/src/collect-network";
+import { redactText } from "../agent/src/redact";
 
 const plan: Record<string, string> = JSON.parse(process.env.CHAOS_PLAN ?? "{}");
 
 export const test = base.extend<{ forensics: void }>({
   forensics: [
-    async ({ page }, use, testInfo) => {
+    async ({ page, context }, use, testInfo) => {
+      const collection = collectNetwork(context);
       const scenario = scenarioById(plan[testKey(testInfo.file, testInfo.title)] ?? "clean");
 
       if (scenario.release) {
@@ -35,7 +39,11 @@ export const test = base.extend<{ forensics: void }>({
 
       await use();
 
-      if (testInfo.status === testInfo.expectedStatus || page.isClosed()) return;
+      if (testInfo.status === testInfo.expectedStatus) return;
+      const screenshot = page.isClosed() ? null : await captureMaskedScreenshot(page).catch(() => null);
+      if (screenshot) {
+        await testInfo.attach("masked-screenshot", { body: screenshot, contentType: "image/jpeg" });
+      }
       const snapshot = await page.locator("body").ariaSnapshot({ timeout: 2_000 }).catch(() => "");
       const candidates: Candidate[] = await page
         .evaluate(() => {
@@ -53,14 +61,23 @@ export const test = base.extend<{ forensics: void }>({
           };
           return [...document.querySelectorAll("button, a, input, textarea, h1, h2, h3, [data-testid]")].map((el) => ({
             role: roleOf(el),
-            name: nameOf(el).slice(0, 120),
+            name: nameOf(el),
             testId: el.getAttribute("data-testid"),
             tag: el.tagName.toLowerCase(),
           }));
         })
         .catch(() => []);
       await testInfo.attach("forensics", {
-        body: JSON.stringify({ url: page.url(), snapshot, candidates }),
+        body: JSON.stringify({
+          snapshot: redactText(snapshot).slice(0, 4000),
+          candidates: candidates.map((candidate) => ({
+            ...candidate,
+            name: redactText(candidate.name).slice(0, 120),
+            testId: candidate.testId === null ? null : redactText(candidate.testId),
+          })),
+          network: collection.network(),
+          consoleErrors: collection.consoleErrors,
+        }),
         contentType: "application/json",
       });
     },

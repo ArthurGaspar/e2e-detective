@@ -125,7 +125,7 @@ function loginView() {
   h(`<section class="panel narrow">
       <h1>Detective sign-in</h1>
       <form id="login">
-        <label>Badge number <input name="badge" autocomplete="username" required></label>
+        <label>Badge number <input name="badge" autocomplete="username" data-private required></label>
         <label>Password <input name="password" type="password" autocomplete="current-password" required></label>
         <button type="submit">Sign in</button>
         <p id="login-error" role="alert" class="alert" hidden></p>
@@ -168,7 +168,7 @@ async function boardView() {
   const closed = cases.filter((c) => c.status === "closed");
   h(`<section>
       <h1>${TEXT.board}</h1>
-      <p class="muted">Welcome back, ${esc(sessionStorage.getItem("detective"))}.</p>
+      <p class="muted">Welcome back, <span data-private>${esc(sessionStorage.getItem("detective"))}</span>.</p>
       <div class="columns">
         <section aria-labelledby="open-h"><h2 id="open-h">${TEXT.open} (${open.length})</h2>
           <ul class="cards" data-testid="open-cases">${open.map(card).join("")}</ul></section>
@@ -187,11 +187,11 @@ async function caseView(id) {
       <a href="#/board">← ${TEXT.board}</a>
       <h1>${esc(c.title)}</h1>
       <p class="muted">${esc(c.district)} · <span class="chip ${c.status}" data-testid="case-status">${c.status}</span></p>
-      <p>${esc(c.summary)}</p>
-      <p id="verdict" role="status" class="verdict" hidden></p>
+      <p data-private>${esc(c.summary)}</p>
+      <p id="verdict" role="status" class="verdict" data-private hidden></p>
 
       <h2>Suspects</h2>
-      <ul class="suspects">
+      <ul class="suspects" data-private>
         ${c.suspects
           .map(
             (s) => `<li><div><strong>${esc(s.name)}</strong><p class="muted">${esc(s.note)}</p></div>
@@ -201,7 +201,7 @@ async function caseView(id) {
       </ul>
 
       <h2>Evidence (<span data-testid="evidence-count">${shownCount}</span>)</h2>
-      <ul class="evidence" data-testid="evidence-list">${c.evidence.map((e) => `<li>${esc(e)}</li>`).join("")}</ul>
+      <ul class="evidence" data-testid="evidence-list" data-private>${c.evidence.map((e) => `<li>${esc(e)}</li>`).join("")}</ul>
       <form id="evidence-form">
         <label>New evidence <textarea name="text" rows="2" required></textarea></label>
         <button type="submit" data-testid="${TEXT.evidenceId}">${TEXT.addEvidence}</button>

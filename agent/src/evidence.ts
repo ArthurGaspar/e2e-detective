@@ -12,6 +12,7 @@
 import { readFileSync } from "node:fs";
 import { strFromU8, unzipSync } from "fflate";
 import type { Candidate } from "./heal";
+import { redactText, redactUrl } from "./redact";
 
 export interface NetworkCall {
   url: string;
@@ -31,7 +32,7 @@ export interface AttemptEvidence {
   consoleErrors: string[];
   snapshot: string;
   candidates: Candidate[];
-  /** Last screencast frame of the attempt, as a JPEG. */
+  /** Masked screenshot captured by the fixture, as a JPEG. */
   screenshot: Uint8Array | null;
 }
 
@@ -54,7 +55,7 @@ export function locatorFromError(message: string): string | null {
   return any ? any[1] : null;
 }
 
-function readTrace(path: string): Pick<AttemptEvidence, "network" | "consoleErrors" | "screenshot"> {
+function readTrace(path: string): Pick<AttemptEvidence, "network" | "consoleErrors"> {
   const files = unzipSync(readFileSync(path));
   const lines = (name: string) =>
     strFromU8(files[name])
@@ -74,27 +75,24 @@ function readTrace(path: string): Pick<AttemptEvidence, "network" | "consoleErro
     if (/^\d+-trace\.network$/.test(name)) {
       for (const e of lines(name)) {
         const s = e.snapshot ?? {};
-        const url: string | undefined = s.request?.url;
+        const url = typeof s.request?.url === "string" ? redactUrl(s.request.url) : "";
         if (!url) continue;
         network.push({
           url,
           // Requests that never got a response are recorded with status -1.
           status: Math.max(0, Number(s.response?.status ?? 0)),
           ms: Math.max(0, Number(s.time ?? 0)),
-          failure: s.response?._failureText ?? s._failureText ?? undefined,
+          failure: redactText(String(s.response?._failureText ?? s._failureText ?? "")) || undefined,
         });
       }
     }
     if (/^\d+-trace\.trace$/.test(name)) {
       for (const e of lines(name)) {
-        if (e.type === "console" && e.messageType === "error") consoleErrors.push(String(e.text ?? "").slice(0, 300));
+        if (e.type === "console" && e.messageType === "error") consoleErrors.push(redactText(String(e.text ?? "")).slice(0, 300));
       }
     }
   }
-  const frames = Object.keys(files)
-    .filter((n) => n.startsWith("screencast/") && n.endsWith(".jpeg"))
-    .sort((a, b) => Number(a.match(/-(\d+)\.jpeg$/)?.[1] ?? 0) - Number(b.match(/-(\d+)\.jpeg$/)?.[1] ?? 0));
-  return { network, consoleErrors, screenshot: frames.length ? files[frames[frames.length - 1]] : null };
+  return { network, consoleErrors };
 }
 
 interface ReportAttachment {
@@ -145,20 +143,32 @@ export function readReport(reportPath: string, keyOf: (file: string, title: stri
         const attempts = t.results
           .filter((r) => r.status !== "passed" && r.status !== "skipped")
           .map((r): AttemptEvidence => {
-            const error = stripAnsi(r.error?.message ?? r.errors?.[0]?.message ?? "");
+            const error = redactText(stripAnsi(r.error?.message ?? r.errors?.[0]?.message ?? ""));
             const trace = r.attachments.find((a) => a.name === "trace" && a.path);
             const forensicsRaw = r.attachments.find((a) => a.name === "forensics");
             const forensics = forensicsRaw ? JSON.parse(attachmentText(forensicsRaw) ?? "{}") : {};
-            const fromTrace = trace?.path ? readTrace(trace.path) : { network: [], consoleErrors: [], screenshot: null };
+            const collected = Array.isArray(forensics.network) && Array.isArray(forensics.consoleErrors)
+              ? {
+                network: (forensics.network as NetworkCall[]).flatMap(({ url, status, ms, failure }) => {
+                  const safe = redactUrl(url);
+                  return safe ? [{ url: safe, status, ms, failure: failure ? redactText(failure) : undefined }] : [];
+                }),
+                consoleErrors: (forensics.consoleErrors as string[]).map((line) => redactText(line).slice(0, 300)),
+              }
+              : trace?.path ? readTrace(trace.path) : { network: [], consoleErrors: [] };
+            const masked = r.attachments.find((a) => a.name === "masked-screenshot" && a.contentType === "image/jpeg");
             return {
               retry: r.retry,
               status: r.status,
               durationMs: r.duration,
               error: error.slice(0, 2000),
               locator: locatorFromError(error),
-              ...fromTrace,
-              snapshot: String(forensics.snapshot ?? "").slice(0, 4000),
-              candidates: forensics.candidates ?? [],
+              ...collected,
+              screenshot: masked?.body ? Buffer.from(masked.body, "base64") : masked?.path ? readFileSync(masked.path) : null,
+              snapshot: redactText(String(forensics.snapshot ?? "")).slice(0, 4000),
+              candidates: ((forensics.candidates ?? []) as Candidate[]).map(({ role, name, testId, tag }) => ({
+                role: redactText(role), name: redactText(name), testId: testId === null ? null : redactText(testId), tag: redactText(tag),
+              })),
             };
           });
         out.push({ key: keyOf(spec.file, spec.title), file: spec.file, title: spec.title, outcome: t.status, attempts });

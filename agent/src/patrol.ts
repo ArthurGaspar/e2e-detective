@@ -11,6 +11,7 @@ import { healLeads } from "./heal";
 import { type Model, predict, rulesVerdict, topCause } from "./model";
 import { drawScenario, scenarioById, testKey } from "./scenarios";
 import type { CaseDoc, RunDoc, Store } from "./store";
+import { redactUrl } from "./redact";
 
 export const ROOT = resolve(import.meta.dirname, "../..");
 export const MODEL_PATH = join(ROOT, "model/model.json");
@@ -86,16 +87,20 @@ export async function patrol(opts: PatrolOptions): Promise<PatrolResult> {
     PW_OUTPUT_DIR: join(workDir, "results"),
   };
   if (opts.target) env.TARGET_URL = opts.target;
-  playwright([], env);
-  if (!existsSync(reportPath)) throw new Error("Playwright did not produce a report; is the crime scene reachable?");
-
-  const evidence = readReport(reportPath, testKey);
+  let evidence;
+  try {
+    playwright([], env);
+    if (!existsSync(reportPath)) throw new Error("Playwright did not produce a report; is the crime scene reachable?");
+    evidence = readReport(reportPath, testKey);
+  } finally {
+    rmSync(workDir, { recursive: true, force: true, maxRetries: 4 });
+  }
   const cases: CaseDoc[] = [];
   const run: RunDoc = {
     _id: runId,
     startedAt: startedAt.toISOString(),
     finishedAt: new Date().toISOString(),
-    target: opts.target ?? "http://localhost:4400/",
+    target: redactUrl(opts.target ?? "http://localhost:4400/"),
     trigger: opts.trigger,
     tests: [],
   };
@@ -147,6 +152,5 @@ export async function patrol(opts: PatrolOptions): Promise<PatrolResult> {
     run.tests.push(entry);
   }
   await opts.store.saveRun(run);
-  rmSync(workDir, { recursive: true, force: true });
   return { run, cases };
 }

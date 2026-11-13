@@ -70,6 +70,19 @@ p { margin: 0 0 12px; color: var(--ink-2); }
 .desk-date { grid-column: 2; color: var(--ink-3); font-size: 9px; }
 .archive-notice { font: 10px/1.7 var(--mono); color: var(--ink-3); padding: 10px 0; border-block: 1px dashed var(--line); margin: -4px 0 7px; }
 .archive-notice b { font-weight: 400; text-transform: uppercase; color: var(--accent); margin-right: 12px; letter-spacing: 1px; }
+.privacy-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding: 8px 14px;
+  border-left: 2px solid var(--good);
+  background: var(--paper-2);
+  color: var(--ink-2);
+  font-size: 12px;
+}
+.privacy-notice strong { color: var(--good); font: 600 10px/1.6 var(--mono); text-transform: uppercase; }
+.privacy-notice a { margin-left: auto; }
 .case-desk { display: grid; grid-template-columns: 365px minmax(0, 1fr); align-items: start; gap: 38px; }
 .case-register { background: var(--paper-2); border: 1px solid var(--line); position: relative; box-shadow: -4px 5px 0 -2px var(--bg), -4px 5px 0 -1px var(--line); margin-top: 28px; }
 .folder-tab { position: absolute; top: -29px; left: -1px; width: 218px; height: 29px; border: 1px solid var(--line); border-bottom: 0; background: var(--paper-2); border-radius: 5px 16px 0 0; padding: 8px 17px; display: flex; justify-content: space-between; text-transform: uppercase; letter-spacing: 1px; font: 9px var(--mono); color: var(--ink-3); }
@@ -215,6 +228,8 @@ summary { cursor: pointer; font-size: 13px; }
   .desk-status { font-size: 8px; letter-spacing: 0; flex: none; }
   .desk-date { font-size: 8px; }
   .archive-notice { font-size: 9px; }
+  .privacy-notice { flex-direction: column; }
+  .privacy-notice a { margin-left: 0; }
   .case-desk { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .cases { max-height: 340px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
   .case-card { padding: 13px 16px; }

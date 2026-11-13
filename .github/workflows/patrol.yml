@@ -55,6 +55,12 @@ jobs:
           target="https://${GITHUB_REPOSITORY_OWNER,,}.github.io/${GITHUB_REPOSITORY#*/}/crime-scene/"
           npm run patrol -- --data .runs-data --target "$target" --trigger "${{ github.event_name }}" --retrain
 
+      - name: Check publication for personal data
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr
+          npm run check:publication -- .runs-data
+
       - name: Commit the case files
         working-directory: .runs-data
         run: |

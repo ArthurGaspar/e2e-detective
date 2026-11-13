@@ -53,6 +53,12 @@ jobs:
           npx playwright install --with-deps chromium
           npm run test:dashboard
 
+      - name: Check publication for personal data
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tesseract-ocr
+          npm run check:publication -- dashboard/dist
+
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'
         with:

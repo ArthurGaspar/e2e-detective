@@ -17,6 +17,7 @@
     "heal": "tsx agent/src/cli.ts heal",
     "analyze-trace": "tsx agent/src/cli.ts analyze-trace",
     "proof:external": "tsx examples/external/prove.ts",
+    "check:publication": "tsx agent/src/check-publication.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },

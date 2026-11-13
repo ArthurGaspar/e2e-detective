@@ -21,7 +21,7 @@ The dashboard reads the `runs-data` branch. When that archive is unavailable, it
 ## What I built
 
 - **Fault injection:** scheduled Playwright runs receive a per-test app release or network fault. Each failure has a known label, kept separate from model inputs.
-- **Trace analysis:** errors, retries, API statuses and timings, console errors, a page snapshot, and the last screencast frame become a case file.
+- **Case evidence:** errors, retries, API statuses and timings, console errors, a page snapshot, and a masked failure screenshot become a case file.
 - **Failure classification:** multinomial logistic regression over 17 observable features, implemented in TypeScript and compared with deterministic rules and a majority baseline.
 - **Local LLM tools:** Ollama writes independent reports, records tests from plain-language journeys, and proposes locator replacements. Each recorder action is checked against the live page before it is accepted.
 - **Evidence browser:** a React dashboard with search, cause filters, wrong diagnoses, case details, evaluation results, and a run log.
@@ -131,6 +131,39 @@ The official `mongodb` driver is an optional dependency installed by `npm ci`; i
 The adapter stores documents in `cases` and `runs`, and JPEG bytes in `screenshots` in the selected database. Each document/image must fit MongoDB's 16 MiB document limit. Saving a report preserves the original screenshot. Rebuilding the index after patrol or investigation keeps the latest 400 cases and 300 runs, removes expired screenshots, and exports JSON, images, and `index.json` into `--data` (default `.runs-data/`) for the existing static dashboard. That export replaces generated case/run files in the destination; use a dedicated directory. Existing JSON archives are not imported into MongoDB automatically. Training, evaluation, healing, and sweeps also select MongoDB when the URI is set; sweeps write their training records to `model/training.jsonl` as before.
 
 For scheduled patrols, add a repository Actions secret named `MONGODB_URI`; the workflow already passes it to the patrol command. The database must be reachable from the runner. Without that secret, scheduled patrols keep using JSON. Database credentials remain on the agent side; the static dashboard reads only the exported archive.
+
+## Data collection, retention, and LGPD
+
+The lab collects evidence to diagnose Playwright failures and evaluate the classifier on synthetic test runs. This section describes the safeguards relevant to Brazil's **Lei Geral de Proteção de Dados Pessoais (LGPD, Law No. 13,709/2018)**, including data minimization, transparency, and security. [Article 6 and Article 46 of the LGPD](https://www2.camara.leg.br/legin/fed/lei/2018/lei-13709-14-agosto-2018-787077-publicacaooriginal-156201-pl.html).
+
+### What a patrol collects
+
+| Evidence | What the archive stores |
+|---|---|
+| Runs and tests | Target URL, timestamps, test names, outcomes, retries, durations, and injected scenarios. |
+| Failed attempts | Error messages, failing locators, console errors, and API URLs, statuses, timings, and request failures. |
+| Page and diagnosis | Accessibility snapshot text, a masked JPEG when available, classification features and verdicts, and locator suggestions. Optional Ollama reports and issue drafts are stored with the case. |
+
+Managed patrols collect only network metadata as evidence. Request and response bodies and headers are excluded, and automatic Playwright traces are disabled. Stored URLs omit credentials, query strings and fragments. The redaction rules replace email addresses and CPFs that pass both check digits in console messages, snapshot text, errors, and locator candidates.
+
+Patrols capture failure screenshots with Playwright masks over password, email, phone, autocomplete and free-text fields, plus elements marked with `data-private`. Mark any additional rendered personal data with `data-private`, including read-only content. Automatic failure screenshots and trace screencasts are disabled. When a masked capture is unavailable, the case has no screenshot.
+
+### Retention
+
+Local JSON storage defaults to `.runs-data/`. When patrol or investigation rebuilds the index, the active archive keeps the latest **400 cases and 300 runs** and removes screenshots associated with pruned cases. The MongoDB adapter applies the same limits and exports the retained archive as JSON and JPEG files. This is a count-based limit. Earlier copies can persist in Git history, backups, and the bundled historical sample.
+
+Playwright can write temporary failure context and assertion output. Managed patrols attempt to remove the temporary run directory before saving cases, including on errors. An interrupted process can leave temporary files behind. Imported trace ZIPs and reports written by `analyze-trace` are outside the case archive's retention limits. The command leaves the input ZIP unchanged.
+
+### What stays local and what is published
+
+- **Offline trace analysis.** `analyze-trace` reads the input ZIP on the machine running the command. The command sends neither the original ZIP nor the generated report over the network. Managed patrols also keep their temporary Playwright reports and raw failure context on the machine or CI runner executing the tests.
+- **Local inference by default.** Ollama receives prompts and applicable case evidence at `localhost:11434` by default. Setting `OLLAMA_URL` to a remote endpoint sends that input to the configured host. Issue drafts are saved with the case and require a separate action to publish as issues.
+- **Configured services.** Playwright sends normal application traffic to the test target, which may be remote. If `MONGODB_URI` points to a remote database, stored cases, runs, and masked screenshots are sent to that database. The database credentials are used by the agent and excluded from the dashboard export.
+- **Public CI output.** GitHub Actions runs scheduled patrols on a GitHub runner. It publishes the retained JSON archive and screenshots to the public `runs-data` branch. GitHub Pages serves the dashboard, including its bundled historical sample and the fictional test application. Local CLI runs require a separate action to publish files.
+
+CI checks the complete Pages build and the retained `runs-data` export before publishing either. The check detects emails, valid CPFs, common Brazilian phone formats with a parenthesized area code, and populated personal fields or sensitive URL parameters. It uses Tesseract OCR for screenshots. Findings and unreadable or unsupported artifacts fail the job. Logs show the affected file without printing the matched value. Run the same check locally with `npm run check:publication -- dashboard/dist` and Tesseract on the PATH.
+
+Redaction applies to newly collected evidence. Pattern matching and OCR have limited coverage, especially for personal data in free text and images. Use synthetic data for public patrols and review artifacts before sharing.
 
 ## Analyze a trace from another application
 

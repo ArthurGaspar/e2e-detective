@@ -71,6 +71,11 @@ export function App() {
         </button>
       </header>
       <main id="content" tabIndex={-1}>
+        <aside className="privacy-notice" aria-labelledby="privacy-label">
+          <strong id="privacy-label">LGPD safeguards</strong>
+          <span>New patrol evidence uses screenshot masking and data redaction. CI checks artifacts before publication.</span>
+          <a href="https://github.com/ArthurGaspar/e2e-detective#data-collection-retention-and-lgpd">Data collection and retention</a>
+        </aside>
         {page === "case" && <CaseFile id={caseId!} />}
         {page === "board" && <Board />}
         {page === "model" && <ModelPage />}

@@ -4,6 +4,7 @@ import { readFileSync, statSync } from "node:fs";
 import { basename } from "node:path";
 import { strFromU8, unzipSync } from "fflate";
 import { locatorFromError } from "./evidence";
+import { redactText, redactUrl } from "./redact";
 
 export type Diagnosis = "assertion_mismatch" | "locator_not_found" | "action_not_ready" | "network_failure" | "http_error" | "timeout" | "unclassified";
 export type ReportFormat = "json" | "markdown" | "sarif";
@@ -33,20 +34,11 @@ export interface TraceReport {
 
 type Event = Record<string, any>;
 interface RecordEvent { event: Event; source: Reference }
-const text = (value: unknown): string => typeof value === "string" ? value.replace(/\u001b\[[0-9;]*m/g, "") : "";
+const text = (value: unknown): string => typeof value === "string" ? redactText(value.replace(/\u001b\[[0-9;]*m/g, "")) : "";
 const object = (value: unknown): value is Event => value !== null && typeof value === "object" && !Array.isArray(value);
 const finite = (value: unknown) => typeof value === "number" && Number.isFinite(value) ? Math.max(0, value) : 0;
 
-function safeUrl(value: unknown): string {
-  try {
-    const url = new URL(text(value));
-    url.username = "";
-    url.password = "";
-    url.search = "";
-    url.hash = "";
-    return url.toString();
-  } catch { return ""; }
-}
+const safeUrl = (value: unknown) => typeof value === "string" ? redactUrl(value) : "";
 
 function location(stack: unknown): Location | null {
   if (!Array.isArray(stack)) return null;
