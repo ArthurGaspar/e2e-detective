@@ -70,7 +70,7 @@ const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
  * different spacing, so quotes and whitespace are matched loosely. Returns
  * null when the locator isn't found.
  */
-export function applyHeal(source: string, broken: string, replacement: string): string | null {
+export function applyHeal(source: string, broken: string, replacement: string, preserveQuoteStyle = true): string | null {
   const parts = broken.match(/'(?:[^'\\]|\\.)*'|[^']+/g) ?? [broken];
   const pattern = parts
     .map((p) => (p.startsWith("'") ? `["']${escapeRe(p.slice(1, -1))}["']` : escapeRe(p).replace(/\s+/g, "\\s*")))
@@ -79,7 +79,7 @@ export function applyHeal(source: string, broken: string, replacement: string): 
   if (!re.test(source)) return null;
   // The suggestion uses single quotes; keep the spec's own quote style.
   const quote = source.match(re)![0].includes('"') ? '"' : "'";
-  return source.replace(re, quote === '"' ? replacement.replace(/'((?:[^'\\]|\\.)*)'/g, '"$1"') : replacement);
+  return source.replace(re, () => preserveQuoteStyle && quote === '"' ? replacement.replace(/'((?:[^'\\]|\\.)*)'/g, '"$1"') : replacement);
 }
 
 export function healLeads(locator: string | null, candidates: Candidate[], limit = 3): HealLead[] {

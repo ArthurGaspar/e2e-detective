@@ -34,6 +34,7 @@ export interface CaseReport {
   clues: string[];
   nextStep: string;
   fixedLocator?: string;
+  issueDraft?: { title: string; body: string };
 }
 
 export interface CaseDoc {

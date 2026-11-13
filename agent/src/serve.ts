@@ -2,6 +2,7 @@
 import { createReadStream, existsSync, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
 const ROOT = resolve(import.meta.dirname, "../../crime-scene");
 const PORT = Number(process.env.PORT ?? 4400);
@@ -12,18 +13,24 @@ const TYPES: Record<string, string> = {
   ".json": "application/json; charset=utf-8",
 };
 
-createServer((req, res) => {
-  const path = decodeURIComponent(new URL(req.url ?? "/", "http://x").pathname);
-  let file = normalize(join(ROOT, path));
-  if (!file.startsWith(ROOT)) {
-    res.writeHead(403).end();
-    return;
-  }
-  if (existsSync(file) && statSync(file).isDirectory()) file = join(file, "index.html");
-  if (!existsSync(file)) {
-    res.writeHead(404).end("Not found");
-    return;
-  }
-  res.writeHead(200, { "Content-Type": TYPES[extname(file)] ?? "application/octet-stream" });
-  createReadStream(file).pipe(res);
-}).listen(PORT, () => console.log(`Crime scene at http://localhost:${PORT}/`));
+export function createSceneServer() {
+  return createServer((req, res) => {
+    const path = decodeURIComponent(new URL(req.url ?? "/", "http://x").pathname);
+    let file = normalize(join(ROOT, path));
+    if (!file.startsWith(ROOT)) {
+      res.writeHead(403).end();
+      return;
+    }
+    if (existsSync(file) && statSync(file).isDirectory()) file = join(file, "index.html");
+    if (!existsSync(file)) {
+      res.writeHead(404).end("Not found");
+      return;
+    }
+    res.writeHead(200, { "Content-Type": TYPES[extname(file)] ?? "application/octet-stream" });
+    createReadStream(file).pipe(res);
+  });
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  createSceneServer().listen(PORT, () => console.log(`Crime scene at http://localhost:${PORT}/`));
+}

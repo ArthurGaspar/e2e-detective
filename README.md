@@ -104,6 +104,17 @@ npm run heal -- <caseId>                      # edit a locator; review and rerun
 
 Set `OLLAMA_MODEL` to choose another model. Recorded assertions may still be weaker than the journey intended; passing the recorder’s checks does not replace review.
 
+### Investigate with tools
+
+```sh
+ollama pull qwen3
+npm run investigate -- --agent --model qwen3 --limit 3
+```
+
+Use an Ollama model that supports [tool calling](https://docs.ollama.com/capabilities/tool-calling). The agent investigates cases without reports using `get_error`, `list_network(status?)` (exact HTTP status, or `0` for requests without a response), `get_snapshot`, and `find_similar_locators`. It can call `rerun_test(locator)` once per case to try a recorded candidate in a temporary copy of the spec against the local crime scene with the recorded fault scenario. The rerun requires Playwright Chromium (`npx playwright install chromium`). A local result can differ from the original patrol when it ran against a deployed target.
+
+`draft_issue` stores a title and Markdown body in the case JSON under `report.issueDraft` for review. It does not publish an issue.
+
 ### Optional MongoDB storage
 
 Set `MONGODB_URI` to use MongoDB instead of local JSON as the source of cases and runs. Include a database name in the URI; otherwise the driver uses `test`. For example, in PowerShell:

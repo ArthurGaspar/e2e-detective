@@ -13,7 +13,7 @@ import { parseJson, type Llm } from "./llm";
 import { extractFeatures } from "./features";
 import { inputFromCase, type CaseDoc, type CaseReport } from "./store";
 
-const SYSTEM = `You are a QA detective. A browser test failed; decide why.
+export const REPORT_SYSTEM = `You are a QA detective. A browser test failed; decide why.
 Possible causes:
 - flaky: timing or nondeterminism; the same test can pass on retry. Typical clues: passed on retry, API requests still waiting for a response (slow) when the test stopped.
 - environment: the infrastructure failed, not the code under test. Typical clues: HTTP 5xx, requests that failed with a network error, error banners about the server.
@@ -94,7 +94,7 @@ export async function interrogate(llm: Llm, c: CaseDoc, tries = 2): Promise<Case
   for (let i = 0; i < tries; i++) {
     const reply = await llm.chat(
       [
-        { role: "system", content: SYSTEM },
+        { role: "system", content: REPORT_SYSTEM },
         { role: "user", content: caseBrief(c) + (lastError ? `\n\nYour previous reply was invalid (${lastError}). Follow the JSON format exactly.` : "") },
       ],
       { json: true },

@@ -5,7 +5,7 @@
  *   sweep        run many patrols to build a labeled training set
  *   train        retrain the classifier and report cross-validated accuracy
  *   evaluate     reproduce validation metrics without rewriting the model
- *   investigate  write LLM reports for cases that don't have one (needs Ollama)
+ *   investigate [--agent]  write LLM reports for cases that don't have one (needs Ollama)
  *   generate     record a Playwright test from a plain-language journey (needs Ollama)
  *   heal         rewrite a broken locator in a spec using a case's best lead
  *   analyze-trace <trace.zip> [--format json|markdown|sarif] [--output path]
@@ -16,6 +16,7 @@ import { parseArgs } from "node:util";
 import { generate } from "./generate";
 import { applyHeal } from "./heal";
 import { interrogate } from "./investigate";
+import { investigateAgent } from "./investigate-agent";
 import { Ollama } from "./llm";
 import { evaluate, train, type Model, type Sample } from "./model";
 import { MODEL_PATH, ROOT, loadModel, patrol } from "./patrol";
@@ -38,6 +39,7 @@ const { positionals, values } = parseArgs({
     retrain: { type: "boolean", default: false },
     "faults-only": { type: "boolean", default: false },
     model: { type: "string" },
+    agent: { type: "boolean", default: false },
     format: { type: "string", default: "json" },
     output: { type: "string", short: "o" },
   },
@@ -162,12 +164,13 @@ async function main() {
       for (const c of open) {
         process.stdout.write(`Interrogating ${c._id} (${c.test.title})… `);
         try {
-          c.report = await interrogate(llm, c);
+          c.report = await (values.agent ? investigateAgent(llm, c) : interrogate(llm, c));
           await s.saveCase(c, null);
           const truth = c.truth.cause ?? "unknown";
           console.log(`${c.report.verdict} (${Math.round(c.report.confidence * 100)}%), injected cause: ${truth}`);
         } catch (err) {
           console.log(`failed: ${(err as Error).message}`);
+          if (values.agent) process.exitCode = 1;
         }
       }
       await llm.unload();
