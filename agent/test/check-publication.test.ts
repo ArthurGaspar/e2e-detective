@@ -45,3 +45,10 @@ it("checks screenshot text and blocks unsupported or unreadable artifacts", () =
   expect(checkPublication(root, () => { throw new Error("OCR failed"); }))
     .toContain("capture.jpg — falha ao ler, interpretar ou executar OCR no artefato");
 });
+
+it("scans git metadata files as text instead of rejecting them", () => {
+  writeFileSync(join(root, ".gitattributes"), "* text=auto eol=lf\n*.jpg binary\n");
+  expect(checkPublication(root)).toEqual([]);
+  writeFileSync(join(root, ".gitignore"), "person@example.test\n");
+  expect(checkPublication(root)).toEqual([".gitignore — possível dado pessoal sem redação"]);
+});

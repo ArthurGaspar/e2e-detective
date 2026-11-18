@@ -1,10 +1,11 @@
 import { spawnSync } from "node:child_process";
 import { lstatSync, readFileSync, readdirSync } from "node:fs";
-import { extname, join } from "node:path";
+import { basename, extname, join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { hasPersonalIdentifier } from "./redact";
 
 const textFormats = new Set([".css", ".html", ".js", ".json", ".md", ".svg", ".txt"]);
+const textFiles = new Set([".gitattributes", ".gitignore"]);
 const imageFormats = new Set([".jpeg", ".jpg", ".png"]);
 const sensitiveQuery = /[?&](?:cpf|e-?mail|phone|telefone|password|senha|token|name|nome|address|endereco)=[^&#\s"'<>]+/i;
 const personalField = /^(?:e-?mail|phone|telefone|celular|full[_-]?name|nome[_-]?completo|street[_-]?address|endere[cç]o)$/i;
@@ -67,7 +68,7 @@ export function checkPublication(root: string, ocr = readImageText): string[] {
         return;
       }
 
-      const ext = extname(file).toLowerCase();
+      const ext = textFiles.has(basename(file)) ? ".txt" : extname(file).toLowerCase();
       if (!stat.isFile() || (!textFormats.has(ext) && !imageFormats.has(ext))) {
         findings.push(`${label} — formato de artefato não verificado`);
         return;
