@@ -211,6 +211,8 @@ README screenshots use dark mode. With the dashboard development server running,
 
 The deployment workflow checks agent tests, types, the dashboard build, and desktop/mobile browser flows. The browser tests exercise archive fallback, search, filters, evidence, deep links, theme persistence, and navigation.
 
+Contributor documentation: [architecture](docs/architecture.md) (patrol pipeline, module by module), [data format](docs/data-format.md) (case archive, `index.json`, training records), and [extending the lab](docs/extending.md) (new faults, journeys, features, artifact types, storage backends).
+
 | Directory | Responsibility |
 |---|---|
 | `agent/src/` | Evidence extraction, features, model, LLM tools, JSON/MongoDB storage, CLI |
