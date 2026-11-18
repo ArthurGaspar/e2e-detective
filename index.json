@@ -1,6 +1,17 @@
 {
- "updatedAt": "2026-11-13T02:58:45.041Z",
+ "updatedAt": "2026-11-18T23:35:04.826Z",
  "cases": [
+  {
+   "_id": "20261118T233449Z-6uv2lh-1",
+   "runId": "20261118T233449Z-6uv2lh",
+   "openedAt": "2026-11-18T23:35:04.806Z",
+   "test": "close a solved case",
+   "verdict": "outdated_test",
+   "confidence": 0.908,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
   {
    "_id": "20261113T025817Z-hgc3ey-4",
    "runId": "20261113T025817Z-hgc3ey",
@@ -3523,6 +3534,14 @@
   }
  ],
  "runs": [
+  {
+   "_id": "20261118T233449Z-6uv2lh",
+   "startedAt": "2026-11-18T23:34:49.603Z",
+   "trigger": "workflow_run",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  },
   {
    "_id": "20261113T025817Z-hgc3ey",
    "startedAt": "2026-11-13T02:58:17.280Z",
