@@ -1,6 +1,17 @@
 {
- "updatedAt": "2026-11-22T01:16:10.680Z",
+ "updatedAt": "2026-11-22T11:15:45.432Z",
  "cases": [
+  {
+   "_id": "20261122T111530Z-3guwmm-1",
+   "runId": "20261122T111530Z-3guwmm",
+   "openedAt": "2026-11-22T11:15:45.413Z",
+   "test": "open a case file",
+   "verdict": "flaky",
+   "confidence": 0.962,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
   {
    "_id": "20261122T011555Z-rclbrh-2",
    "runId": "20261122T011555Z-rclbrh",
@@ -3743,6 +3754,14 @@
   }
  ],
  "runs": [
+  {
+   "_id": "20261122T111530Z-3guwmm",
+   "startedAt": "2026-11-22T11:15:30.401Z",
+   "trigger": "schedule",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  },
   {
    "_id": "20261122T011555Z-rclbrh",
    "startedAt": "2026-11-22T01:15:55.707Z",
