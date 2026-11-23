@@ -1,6 +1,28 @@
 {
- "updatedAt": "2026-11-22T19:33:22.713Z",
+ "updatedAt": "2026-11-23T01:40:31.891Z",
  "cases": [
+  {
+   "_id": "20261123T014014Z-e2eo10-2",
+   "runId": "20261123T014014Z-e2eo10",
+   "openedAt": "2026-11-23T01:40:31.874Z",
+   "test": "close a solved case",
+   "verdict": "outdated_test",
+   "confidence": 0.869,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261123T014014Z-e2eo10-1",
+   "runId": "20261123T014014Z-e2eo10",
+   "openedAt": "2026-11-23T01:40:31.874Z",
+   "test": "add evidence",
+   "verdict": "outdated_test",
+   "confidence": 0.796,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
   {
    "_id": "20261122T193307Z-gnuyvd-2",
    "runId": "20261122T193307Z-gnuyvd",
@@ -3776,6 +3798,14 @@
   }
  ],
  "runs": [
+  {
+   "_id": "20261123T014014Z-e2eo10",
+   "startedAt": "2026-11-23T01:40:14.484Z",
+   "trigger": "schedule",
+   "passed": 3,
+   "failed": 2,
+   "flaky": 0
+  },
   {
    "_id": "20261122T193307Z-gnuyvd",
    "startedAt": "2026-11-22T19:33:07.156Z",
