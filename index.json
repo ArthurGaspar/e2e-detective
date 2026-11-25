@@ -1,6 +1,39 @@
 {
- "updatedAt": "2026-11-24T23:53:09.210Z",
+ "updatedAt": "2026-11-25T08:26:29.605Z",
  "cases": [
+  {
+   "_id": "20261125T082604Z-8i35yk-3",
+   "runId": "20261125T082604Z-8i35yk",
+   "openedAt": "2026-11-25T08:26:29.588Z",
+   "test": "open a case file",
+   "verdict": "outdated_test",
+   "confidence": 0.963,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": true
+  },
+  {
+   "_id": "20261125T082604Z-8i35yk-2",
+   "runId": "20261125T082604Z-8i35yk",
+   "openedAt": "2026-11-25T08:26:29.588Z",
+   "test": "add evidence",
+   "verdict": "flaky",
+   "confidence": 0.963,
+   "truth": "flaky",
+   "reported": false,
+   "healable": false
+  },
+  {
+   "_id": "20261125T082604Z-8i35yk-1",
+   "runId": "20261125T082604Z-8i35yk",
+   "openedAt": "2026-11-25T08:26:29.588Z",
+   "test": "accuse the right suspect",
+   "verdict": "environment",
+   "confidence": 0.985,
+   "truth": "environment",
+   "reported": false,
+   "healable": false
+  },
   {
    "_id": "20261124T235254Z-xajume-1",
    "runId": "20261124T235254Z-xajume",
@@ -3875,6 +3908,14 @@
   }
  ],
  "runs": [
+  {
+   "_id": "20261125T082604Z-8i35yk",
+   "startedAt": "2026-11-25T08:26:04.064Z",
+   "trigger": "schedule",
+   "passed": 2,
+   "failed": 3,
+   "flaky": 0
+  },
   {
    "_id": "20261124T235254Z-xajume",
    "startedAt": "2026-11-24T23:52:54.441Z",
