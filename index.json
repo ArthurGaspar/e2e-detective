@@ -1,6 +1,17 @@
 {
- "updatedAt": "2026-11-27T12:10:10.434Z",
+ "updatedAt": "2026-11-27T21:13:19.212Z",
  "cases": [
+  {
+   "_id": "20261127T211304Z-j64kwj-1",
+   "runId": "20261127T211304Z-j64kwj",
+   "openedAt": "2026-11-27T21:13:19.195Z",
+   "test": "close a solved case",
+   "verdict": "outdated_test",
+   "confidence": 0.912,
+   "truth": "outdated_test",
+   "reported": false,
+   "healable": false
+  },
   {
    "_id": "20261127T120956Z-gxt4pn-2",
    "runId": "20261127T120956Z-gxt4pn",
@@ -4029,6 +4040,14 @@
   }
  ],
  "runs": [
+  {
+   "_id": "20261127T211304Z-j64kwj",
+   "startedAt": "2026-11-27T21:13:04.146Z",
+   "trigger": "schedule",
+   "passed": 4,
+   "failed": 1,
+   "flaky": 0
+  },
   {
    "_id": "20261127T120956Z-gxt4pn",
    "startedAt": "2026-11-27T12:09:56.382Z",
